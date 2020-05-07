@@ -13,10 +13,15 @@ import DeveloperQuote from '@/components/DeveloperQuote.vue'
 
 export default {
   name: 'App',
-  data() {
+  data(){
     return {
-
+      countries: []
     }
+  },
+  mounted(){
+    fetch('https://restcountries.eu/rest/v2/all')
+    .then(result => result.json())
+    .then(countries => this.countries = countries)
   },
 
   components: {
