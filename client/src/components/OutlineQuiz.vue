@@ -6,9 +6,14 @@
 </template>
 
 <script>
+import OutlineMap from '@/components/OutlineMap.vue'
+
+
 export default {
   name: 'outline-quiz',
-  
+  components: {
+    'outline-map': OutlineMap,
+  }
 }
 </script>
 
