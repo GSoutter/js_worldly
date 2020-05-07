@@ -2,12 +2,14 @@
   <div class="app">
     <h1>Worldly</h1>
     <developer-quote></developer-quote>
+    <outline-quiz/>
   </div>
 </template>
 
 <script>
 import { eventBus } from '@/main.js'
 import DeveloperQuote from '@/components/DeveloperQuote.vue'
+import OutlineQuiz from '@/components/OutlineQuiz.vue'
 
 
 
@@ -26,6 +28,7 @@ export default {
 
   components: {
     'developer-quote': DeveloperQuote,
+    'outline-quiz': OutlineQuiz,
   }
 }
 </script>
