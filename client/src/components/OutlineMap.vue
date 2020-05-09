@@ -2,6 +2,7 @@
   <div class="">
     <button v-on:click="randomArrayItem(polygonData)">Generate another country</button>
     <button v-on:click="createPerformanceData(worldCountryPolygonData)">Generate blank performanceData</button>
+    <button v-on:click="createTestPerformanceData(worldCountryPolygonData)">Generate test performanceData</button>
     <h4 v-if="answerCountry">Find {{this.answerCountry.name}}</h4>
     <h5 v-if="selectedCountry">you have selected {{this.selectedCountry.dataItem.dataContext.name}}</h5>
     <button  v-if="correct" v-on:click="resetAnswer">Well done. Try agin?</button>
@@ -33,6 +34,7 @@ export default {
       answerCountry: null,
       worldCountryPolygonData: null,
       performanceData: [],
+      testPerformanceData: [],
 
     }
   },
@@ -118,7 +120,19 @@ export default {
         }
         this.performanceData.push(entry)
       }
-    }
+    },
+    createTestPerformanceData: function(geoDataArray){
+      this.testPerformanceData = []
+      for (let country of geoDataArray){
+        let entry = {
+          id: country.properties.id,
+          name: country.properties.name,
+          correct_answers: Math.floor(Math.random() * 100),
+          wrong_answers: Math.floor(Math.random() * 100),
+        }
+        this.testPerformanceData.push(entry)
+      }
+    },
 
 
   }
