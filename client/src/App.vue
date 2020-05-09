@@ -36,6 +36,6 @@ export default {
 <style lang="css" scoped>
 .app {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-Helvetica, Arial, "Lucida Grande", sans-serif;
+  Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 </style>

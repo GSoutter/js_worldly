@@ -2,7 +2,7 @@
   <div class="">
     <button v-on:click="randomArrayItem(polygonData)">Generate another country</button>
     <h4 v-if="answerCountry">Find {{this.answerCountry.name}}</h4>
-    <h5 v-if="oldEv">you have selected {{this.oldEv.dataItem.dataContext.name}}</h5>
+    <h5 v-if="selectedCountry">you have selected {{this.selectedCountry.dataItem.dataContext.name}}</h5>
     <button  v-if="correct" v-on:click="resetAnswer">Well done. Try agin?</button>
 
     <div class="" id="chartdiv">
@@ -26,10 +26,9 @@ export default {
   name: 'outline-map',
   data() {
     return {
-      selectedCountry: [],
       map: null,
       polygonData: [],
-      oldEv: null,
+      selectedCountry: null,
       answerCountry: null,
 
     }
@@ -40,30 +39,39 @@ export default {
     this.map.projection = new am4maps.projections.Miller()
     var polygonSeries = this.map.series.push(new am4maps.MapPolygonSeries())
 
+
+    // assign data to polygonData variable stored in vue. To allow for randomising country.  Doesn't work the other way round, this may be due to polygon series taking time to load, and is overwritten severing connection to the polygonData varible. Tried looking for a proper way to get this data but could not.
     polygonSeries._data = this.polygonData
 
-    //excludes antartica
+    //excludes antartica from polygon data preventing
     polygonSeries.exclude = ["AQ"]
     polygonSeries.useGeodata = true
 
     var polygonTemplate = polygonSeries.mapPolygons.template;
 
+
+    // assign hover state to variable and assigns color. Hover is activated when mouse is over object in browswer wind.
     var hs = polygonTemplate.states.create("hover");
     hs.properties.fill = am4core.color("#367B25");
 
+
+    // assigns active state to varaible and changes fill colour.
     var activeState = polygonTemplate.states.create("active");
     activeState.properties.fill = this.map.colors.getIndex(2);
 
 
-    // select listener, and highlight
+    // on click listener for objects on map and highlight
     polygonTemplate.events.on("hit", (ev) => {
-      if (this.oldEv) {
-        this.oldEv.isActive = false
+      // check if a previous event has been stored and then changes to false
+      if (this.selectedCountry) {
+        this.selectedCountry.isActive = false
       }
-      ev.target.isActive = !ev.target.isActive;
-      console.log(ev.target.dataItem.dataContext.id);
 
-      this.oldEv = ev.target;
+      // sets target clicked to active. To show coloring
+      ev.target.isActive = !ev.target.isActive;
+
+      // saves event to deactivate for next object clicked and for use in checking methods.
+      this.selectedCountry = ev.target;
     });
 
 
@@ -75,10 +83,10 @@ export default {
   },
   computed: {
     correct() {
-      if (!this.answerCountry || !this.oldEv) {
+      if (!this.answerCountry || !this.selectedCountry) {
         return false
       }
-      if (this.answerCountry.name === this.oldEv.dataItem.dataContext.name) {
+      if (this.answerCountry.name === this.selectedCountry.dataItem.dataContext.name) {
         return true
       } else {
         return false
@@ -96,6 +104,7 @@ export default {
     resetAnswer: function(){
       this.randomArrayItem(this.polygonData)
     },
+
 
   }
 }
