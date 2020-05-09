@@ -2,7 +2,7 @@
   <div>
     <h3>This is the flag quiz</h3>
     <button type="button" v-on:click="getRandomCountry" name="button">Get random country</button>
-    <flag-quiz-item :country="this.randomCountry"></flag-quiz-item>
+    <flag-quiz-item :country="this.randomCountry" v-if="randomCountry"></flag-quiz-item>
 
   </div>
 </template>
