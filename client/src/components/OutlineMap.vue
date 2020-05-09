@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="">
     <button v-on:click="randomArrayItem(polygonData)">Generate another country</button>
+    <button v-on:click="createPerformanceData(worldCountryPolygonData)">Generate blank performanceData</button>
     <h4 v-if="answerCountry">Find {{this.answerCountry.name}}</h4>
     <h5 v-if="selectedCountry">you have selected {{this.selectedCountry.dataItem.dataContext.name}}</h5>
     <button  v-if="correct" v-on:click="resetAnswer">Well done. Try agin?</button>
@@ -30,6 +31,8 @@ export default {
       polygonData: [],
       selectedCountry: null,
       answerCountry: null,
+      worldCountryPolygonData: null,
+      performanceData: [],
 
     }
   },
@@ -39,7 +42,7 @@ export default {
     this.map.projection = new am4maps.projections.Miller()
     var polygonSeries = this.map.series.push(new am4maps.MapPolygonSeries())
 
-
+    this.worldCountryPolygonData = am4geodata_worldLow.features
     // assign data to polygonData variable stored in vue. To allow for randomising country.  Doesn't work the other way round, this may be due to polygon series taking time to load, and is overwritten severing connection to the polygonData varible. Tried looking for a proper way to get this data but could not.
     polygonSeries._data = this.polygonData
 
@@ -104,6 +107,18 @@ export default {
     resetAnswer: function(){
       this.randomArrayItem(this.polygonData)
     },
+    createPerformanceData: function(geoDataArray){
+      this.performanceData = []
+      for (let country of geoDataArray){
+        let entry = {
+          id: country.properties.id,
+          name: country.properties.name,
+          correct_answers: 0,
+          wrong_answers: 0,
+        }
+        this.performanceData.push(entry)
+      }
+    }
 
 
   }
