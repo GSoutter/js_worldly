@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const createRouter = require('./helpers/create_router.js');
+const fetch = require('node-fetch');
+
 const cors = require('cors')
 const parser = require('body-parser')
 
@@ -20,6 +22,17 @@ MongoClient.connect('mongodb://localhost:27017')
 
 })
 .catch(console.error);
+
+app.get('/', (req, res) => {
+  res.send('Hello World')
+})
+
+app.get('/restCountries', (req, res) => {
+  const url = 'https://restcountries.eu/rest/v2/all';
+  fetch(url)
+  .then(jsonData => jsonData.json())
+  .then(data => res.json(data));
+});
 
 
 app.listen(3000, function () {

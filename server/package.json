@@ -1,30 +1,24 @@
 {
-  "name": "gp_wk10_worldy",
+  "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "archive_amChart.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "server:dev": "nodemon server.js",
-    "seeds": "mongo < db/seeds.js",
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/GSoutter/CdCl_wk10_GProject_worldly.git"
+    "seeds": "mongo < db/seeds.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/GSoutter/CdCl_wk10_GProject_worldly/issues"
-  },
-  "homepage": "https://github.com/GSoutter/CdCl_wk10_GProject_worldly#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongodb": "^3.5.7"
+    "mongodb": "^3.5.7",
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
+    "cors": "^2.8.5",
     "nodemon": "^2.0.3"
   }
 }
