@@ -7,6 +7,9 @@
     <button @click="getPossibleAnswers">Do it</button>
   <h2>What is the capital of {{this.randomCountry.name}}?</h2>
   <input v-model="userGuess" v-on:keyup.enter="checkGuess">
+  <p><div v-for="possibleAnswer in possibleAnswers">
+    <input type="radio" v-model="userGuess" v-on:change="checkGuess" name="user_guess">{{possibleAnswer}}</button></p>
+    </div>
   <p v-if="this.userGuessResult === false">Bad luck, try again!
   <br>
   <button @click="getRandomCountry" type="button">I want a new country please!</button></p>
@@ -61,15 +64,13 @@ export default {
       let randomIndex1 = Math.floor(Math.random() * Math.floor(max));
       let wrongCountry1 = this.countries[randomIndex1];
       let wrongAnswer1 = wrongCountry1.capital;
-      this.possibleAnswers.push(wrongAnswer1);
       let randomIndex2 = Math.floor(Math.random() * Math.floor(max));
       let wrongCountry2 = this.countries[randomIndex2];
       let wrongAnswer2 = wrongCountry2.capital;
-      this.possibleAnswers.push(wrongAnswer2);
       let randomIndex3 = Math.floor(Math.random() * Math.floor(max));
       let wrongCountry3 = this.countries[randomIndex3];
       let wrongAnswer3 = wrongCountry3.capital;
-      this.possibleAnswers.push(wrongAnswer3);
+      this.possibleAnswers.push(wrongAnswer1, wrongAnswer2, wrongAnswer3);
       return this.possibleAnswers
       console.log(this.possibleAnswers);
     }
