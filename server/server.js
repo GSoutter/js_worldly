@@ -23,6 +23,16 @@ MongoClient.connect('mongodb://localhost:27017')
 })
 .catch(console.error);
 
+MongoClient.connect('mongodb://localhost:27017')
+.then((client) => {
+  const db = client.db('worldly_GP_wk10');
+  const countriesCollection = db.collection('amMapPerformance');
+  const countriesRouter = createRouter(countriesCollection);
+  app.use('/api/amMapPerformance', countriesRouter);
+
+})
+.catch(console.error);
+
 app.get('/', (req, res) => {
   res.send('Hello World')
 })

@@ -1,9 +1,7 @@
 <template lang="html">
   <div class="">
     <h1>Outline Quiz Map</h1>
-    <outline-map :restCountires="restCountries"/>
-    <button v-on:click="populateDatabase">populateDatabase</button>
-    <p v-if="restCountries">{{restCountries}}</p>
+    <outline-map :performanceData="mapPerformance" />
   </div>
 </template>
 
@@ -15,11 +13,12 @@ import CountriesService from '@/services/CountriesService.js';
 
 export default {
   name: 'outline-quiz',
+  props: ['mapPerformance'],
   components: {
     'outline-map': OutlineMap,
   },
 
-  
+
 
 }
 </script>

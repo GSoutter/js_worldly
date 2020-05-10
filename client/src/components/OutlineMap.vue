@@ -1,8 +1,6 @@
 <template lang="html">
   <div class="">
     <button v-on:click="randomArrayItem(polygonData)">Generate another country</button>
-    <button v-on:click="createPerformanceData(worldCountryPolygonData)">Generate blank performanceData</button>
-    <button v-on:click="createTestPerformanceData(worldCountryPolygonData)">Generate test performanceData</button>
     <h4 v-if="answerCountry">Find {{this.answerCountry.name}}</h4>
     <h5 v-if="selectedCountry">you have selected {{this.selectedCountry.dataItem.dataContext.name}}</h5>
     <button  v-if="answerCorrect" v-on:click="resetAnswer">Well done. Another?</button>
@@ -20,12 +18,15 @@ import * as am4maps from "@amcharts/amcharts4/maps"
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import { eventBus } from '@/main.js'
+import MapCountriesService from '@/services/MapCountriesService.js';
+
 
 
 am4core.useTheme(am4themes_animated);
 
 export default {
   name: 'outline-map',
+  props: ['performanceData'],
   data() {
     return {
       map: null,
@@ -33,8 +34,6 @@ export default {
       selectedCountry: null,
       answerCountry: null,
       worldCountryPolygonData: null,
-      performanceData: [],
-      testPerformanceData: [],
       answerCorrect: false
 
     }
@@ -109,30 +108,7 @@ export default {
       this.answerCorrect = false
       this.randomArrayItem(this.polygonData)
     },
-    createPerformanceData: function(geoDataArray){
-      this.performanceData = []
-      for (let country of geoDataArray){
-        let entry = {
-          id: country.properties.id,
-          name: country.properties.name,
-          correct_answers: 0,
-          wrong_answers: 0,
-        }
-        this.performanceData.push(entry)
-      }
-    },
-    createTestPerformanceData: function(geoDataArray){
-      this.testPerformanceData = []
-      for (let country of geoDataArray){
-        let entry = {
-          id: country.properties.id,
-          name: country.properties.name,
-          correct_answers: Math.floor(Math.random() * 100),
-          wrong_answers: Math.floor(Math.random() * 100),
-        }
-        this.testPerformanceData.push(entry)
-      }
-    },
+
     correct: function(){
       // check if answer is already true to avoid wrong answer being logged after correct answer has been given.
       if (this.answerCorrect) {
@@ -153,9 +129,10 @@ export default {
       } else {
         // result is false. finds element. Increments wrong answer by on. logs for error becking. sets answer to false. Although in this implenation is redundant.
         const countryPerformanceObject = this.performanceData.find(country => country.name === this.answerCountry.name)
-        console.log('perforamnce object: ', countryPerformanceObject);
+        console.log('Performance object: ', countryPerformanceObject);
         countryPerformanceObject.wrong_answers += 1
-        console.log(countryPerformanceObject.name, "wrong: ", countryPerformanceObject.wrong_answers);
+        console.log(countryPerformanceObject.name, "Wrong: ", countryPerformanceObject.wrong_answers);
+
         return this.answerCorrect = false
       }
     }

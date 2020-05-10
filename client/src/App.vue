@@ -8,7 +8,7 @@
       <button v-on:click="select('adminBackend')">Admin</button>
     </div>
     <developer-quote/>
-    <outline-quiz v-if="selectedElement === 'mapQuiz'"/>
+    <outline-quiz v-if="selectedElement === 'mapQuiz'" :mapPerformance="mapPerformance"/>
     <admin-backend v-if="selectedElement === 'adminBackend'" :countries="countries" :mapPerformance="mapPerformance"/>
   </div>
 </template>
@@ -19,6 +19,8 @@ import DeveloperQuote from '@/components/DeveloperQuote.vue'
 import OutlineQuiz from '@/components/OutlineQuiz.vue'
 import AdminBackend from '@/components/AdminBackend.vue'
 import CountriesService from '@/services/CountriesService.js';
+import MapCountriesService from '@/services/MapCountriesService.js';
+
 
 
 
@@ -38,6 +40,13 @@ export default {
 
     eventBus.$on('rest-api-data', (serverReturn) => {
       this.countries = serverReturn
+    })
+
+    MapCountriesService.getCountries()
+    .then(countries => this.mapPerformance = countries)
+
+    eventBus.$on('amMap-api-data', (serverReturn) => {
+      this.mapPerformance = serverReturn
     })
 
 
