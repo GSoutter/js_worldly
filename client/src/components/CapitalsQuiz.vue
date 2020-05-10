@@ -62,10 +62,13 @@ export default {
     getPossibleAnswers(){
       this.possibleAnswers = [];
       this.answerCountry = this.getRandomCountry();
-      let wrongAnswer1 = this.getRandomCountry().capital;
-      let wrongAnswer2 = this.getRandomCountry().capital;
-      let wrongAnswer3 = this.getRandomCountry().capital;
-      this.possibleAnswers.push(this.answerCountry.capital, wrongAnswer1, wrongAnswer2, wrongAnswer3);
+      this.possibleAnswers.push(this.answerCountry.capital);
+      for (let i = this.possibleAnswers.length; i < 4; i ++){
+        let answer = this.getRandomCountry().capital;
+        if (!this.possibleAnswers.includes(answer)){
+          this.possibleAnswers.push(answer)
+        }
+      }
       for (let i = this.possibleAnswers.length - 1; i > 0; i --){
         const newPos = Math.floor(Math.random() * (i + 1))
         const temp = this.possibleAnswers[i];
@@ -82,16 +85,7 @@ export default {
 }
 </script>
 
+
+
 <style lang="css" scoped>
 </style>
-
-<!-- checkGuess(){
-  const correctCapital = this.answerCountry.capital;
-  if (this.userGuess === correctCapital){
-      this.userGuessResult = true;
-  }else{
-      this.userGuessResult = false;
-  }
-    this.userGuess = ""
-  return this.userGuessResult;
-  } -->
