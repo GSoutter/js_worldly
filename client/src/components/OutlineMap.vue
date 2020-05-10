@@ -5,7 +5,7 @@
     <button v-on:click="createTestPerformanceData(worldCountryPolygonData)">Generate test performanceData</button>
     <h4 v-if="answerCountry">Find {{this.answerCountry.name}}</h4>
     <h5 v-if="selectedCountry">you have selected {{this.selectedCountry.dataItem.dataContext.name}}</h5>
-    <button  v-if="correct" v-on:click="resetAnswer">Well done. Try agin?</button>
+    <button  v-if="answerCorrect" v-on:click="resetAnswer">Well done. Another?</button>
 
     <div class="" id="chartdiv">
     </div>
@@ -35,6 +35,7 @@ export default {
       worldCountryPolygonData: null,
       performanceData: [],
       testPerformanceData: [],
+      answerCorrect: false
 
     }
   },
@@ -65,18 +66,25 @@ export default {
     activeState.properties.fill = this.map.colors.getIndex(2);
 
 
-    // on click listener for objects on map and highlight
+    // on click listener for objects on map and highlight.
     polygonTemplate.events.on("hit", (ev) => {
-      // check if a previous event has been stored and then changes to false
-      if (this.selectedCountry) {
-        this.selectedCountry.isActive = false
+
+      if (this.selectedCountry !== ev.target) {
+        // check if a previous event has been stored and then changes to false
+        if (this.selectedCountry) {
+          this.selectedCountry.isActive = false
+        }
+
+        // sets target clicked to active. To show coloring
+        ev.target.isActive = !ev.target.isActive;
+
+        // saves event to deactivate for next object clicked and for use in checking methods.
+        this.selectedCountry = ev.target;
+
+        // trigger check if answer is correct.
+        this.correct()
       }
 
-      // sets target clicked to active. To show coloring
-      ev.target.isActive = !ev.target.isActive;
-
-      // saves event to deactivate for next object clicked and for use in checking methods.
-      this.selectedCountry = ev.target;
     });
 
 
@@ -87,16 +95,7 @@ export default {
     }
   },
   computed: {
-    correct() {
-      if (!this.answerCountry || !this.selectedCountry) {
-        return false
-      }
-      if (this.answerCountry.name === this.selectedCountry.dataItem.dataContext.name) {
-        return true
-      } else {
-        return false
-      }
-    }
+
   },
   methods: {
     randomArrayItem: function(array){
@@ -107,6 +106,7 @@ export default {
       this.answerCountry = array[randomIndex];
     },
     resetAnswer: function(){
+      this.answerCorrect = false
       this.randomArrayItem(this.polygonData)
     },
     createPerformanceData: function(geoDataArray){
@@ -133,6 +133,32 @@ export default {
         this.testPerformanceData.push(entry)
       }
     },
+    correct: function(){
+      // check if answer is already true to avoid wrong answer being logged after correct answer has been given.
+      if (this.answerCorrect) {
+        return;
+      }
+      // check if answer and selection are present.
+      if (!this.answerCountry || !this.selectedCountry) {
+        return this.answerCorrect = false
+      }
+
+      // check if selection is equal to answer
+      if (this.answerCountry.name === this.selectedCountry.dataItem.dataContext.name) {
+        // result is true. Finds element in performance array. Increments by one. logs for error checking. sets answer to true.
+        const countryPerformanceObject = this.performanceData.find(country => country.name === this.answerCountry.name)
+        countryPerformanceObject.correct_answers += 1
+        console.log(countryPerformanceObject.name, "correct: ",countryPerformanceObject.correct_answers);
+        return this.answerCorrect = true
+      } else {
+        // result is false. finds element. Increments wrong answer by on. logs for error becking. sets answer to false. Although in this implenation is redundant.
+        const countryPerformanceObject = this.performanceData.find(country => country.name === this.answerCountry.name)
+        console.log('perforamnce object: ', countryPerformanceObject);
+        countryPerformanceObject.wrong_answers += 1
+        console.log(countryPerformanceObject.name, "wrong: ", countryPerformanceObject.wrong_answers);
+        return this.answerCorrect = false
+      }
+    }
 
 
   }
