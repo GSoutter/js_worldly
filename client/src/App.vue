@@ -18,6 +18,8 @@ import { eventBus } from '@/main.js'
 import DeveloperQuote from '@/components/DeveloperQuote.vue'
 import OutlineQuiz from '@/components/OutlineQuiz.vue'
 import AdminBackend from '@/components/AdminBackend.vue'
+import CountriesService from '@/services/CountriesService.js';
+
 
 
 
@@ -31,9 +33,14 @@ export default {
     }
   },
   mounted(){
-    fetch('https://restcountries.eu/rest/v2/all')
-    .then(result => result.json())
+    CountriesService.getCountries()
     .then(countries => this.countries = countries)
+
+    eventBus.$on('rest-api-data', (serverReturn) => {
+      this.countries = serverReturn
+    })
+
+
   },
   methods: {
     select(element) {
