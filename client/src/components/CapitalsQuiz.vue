@@ -69,6 +69,13 @@ export default {
           this.possibleAnswers.push(answer)
         }
       }
+      this.shuffleArray()
+    },
+    generateQuestion(){
+      this.getRandomCountry();
+      this.getPossibleAnswers();
+    },
+    shuffleArray(){
       for (let i = this.possibleAnswers.length - 1; i > 0; i --){
         const newPos = Math.floor(Math.random() * (i + 1))
         const temp = this.possibleAnswers[i];
@@ -76,13 +83,18 @@ export default {
         this.possibleAnswers[newPos] = temp;
       }
       return this.possibleAnswers
-    },
-    generateQuestion(){
-      this.getRandomCountry();
-      this.getPossibleAnswers();
     }
   }
 }
+
+// for (let i = this.possibleAnswers.length - 1; i > 0; i --){
+//   const newPos = Math.floor(Math.random() * (i + 1))
+//   const temp = this.possibleAnswers[i];
+//   this.possibleAnswers[i] = this.possibleAnswers[newPos];
+//   this.possibleAnswers[newPos] = temp;
+// }
+// return this.possibleAnswers
+
 </script>
 
 
