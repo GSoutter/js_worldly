@@ -57,7 +57,7 @@ export default {
 
     },
 
-    getPossibleAnswers(){
+    generateQuestion(){
       this.possibleAnswers = [];
       this.answerCountry = this.getRandomCountry();
       this.possibleAnswers.push(this.answerCountry.capital);
@@ -76,14 +76,6 @@ export default {
     // the multiple choice options, providing that they do not already exist
     // within the array. These are then shuffled.
 
-    generateQuestion(){
-      this.getRandomCountry();
-      this.getPossibleAnswers();
-
-    // Self-explanatory, this calls both functions at once to populate the page
-    // with a question and possible answers.
-
-    },
     shuffleArray(){
       for (let i = this.possibleAnswers.length - 1; i > 0; i --){
         const newPos = Math.floor(Math.random() * (i + 1))
