@@ -66,6 +66,12 @@ export default {
       let wrongAnswer2 = this.getRandomCountry().capital;
       let wrongAnswer3 = this.getRandomCountry().capital;
       this.possibleAnswers.push(this.answerCountry.capital, wrongAnswer1, wrongAnswer2, wrongAnswer3);
+      for (let i = this.possibleAnswers.length - 1; i > 0; i --){
+        const newPos = Math.floor(Math.random() * (i + 1))
+        const temp = this.possibleAnswers[i];
+        this.possibleAnswers[i] = this.possibleAnswers[newPos];
+        this.possibleAnswers[newPos] = temp;
+      }
       return this.possibleAnswers
     },
     generateQuestion(){
