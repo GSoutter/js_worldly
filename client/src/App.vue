@@ -2,12 +2,12 @@
   <div class="app">
     <h1>Worldly</h1>
     <div class="navbar">
-      <button type="button" v-on:click="selectMapQuiz">Map Quiz</button>
-      <button type="button" v-on:click="selectCapitalQuiz">capital Quiz</button>
-      <button type="button" v-on:click="selectFlagQuiz">Flag Quiz</button>
+      <button v-on:click="select('mapQuiz')">Map Quiz</button>
+      <button v-on:click="select('capitalQuiz')">Capital Quiz</button>
+      <button v-on:click="select('flagQuiz')">Flag Quiz</button>
     </div>
-    <developer-quote></developer-quote>
-    <outline-quiz/>
+    <developer-quote/>
+    <outline-quiz v-if="selectedElement === 'mapQuiz'"/>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
   data(){
     return {
       countries: [],
-      selectedElement: ""
+      selectedElement: ''
     }
   },
   mounted(){
@@ -32,18 +32,8 @@ export default {
     .then(countries => this.countries = countries)
   },
   methods: {
-    selectMapQuiz(){
-      this.selectedElement = "mapQuiz";
-      return this.selectedElement
-      console.log(this.selectedElement);
-    },
-    selectCapitalQuiz(){
-      this.selectedElement = "calitalQuiz";
-      return this.selectedElement
-    },
-    selectFlagQuiz(){
-      this.selectedElement = "flagQuiz";
-      return this.selectedElement
+    select(element) {
+      this.selectedElement = element
     }
 
   },
