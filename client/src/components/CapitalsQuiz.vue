@@ -1,32 +1,32 @@
 <template lang="html">
 
 <div>
-<button @click="getRandomCountry" type="button" v-if="randomCountry === null">Click to begin!</button>
+  <button @click="generateQuestion" type="button" v-if="answerCountry === null">Click to begin!</button>
 
-  <div v-if="randomCountry">
-    <button @click="getPossibleAnswers">Do it</button>
-  <h2>What is the capital of {{this.randomCountry.name}}?</h2>
-  <input v-model="userGuess" v-on:keyup.enter="checkGuess">
-  <p><div v-for="possibleAnswer in possibleAnswers">
-    <input type="radio" v-model="userGuess" v-on:change="checkGuess" name="user_guess">{{possibleAnswer}}</button></p>
-    </div>
+  <div v-if="answerCountry">
+    <!-- <button @click="getPossibleAnswers">Do it</button> -->
+    <h2>What is the capital of {{this.answerCountry.name}}?</h2>
+    <p v-if="possibleAnswers">
+      <button v-on:click="checkGuess(possibleAnswers[0])">{{possibleAnswers[0]}}</button>
+      <button v-on:click="checkGuess(possibleAnswers[1])">{{possibleAnswers[1]}}</button>
+      <button v-on:click="checkGuess(possibleAnswers[2])">{{possibleAnswers[2]}}</button>
+      <button v-on:click="checkGuess(possibleAnswers[3])">{{possibleAnswers[3]}}</button>
+    </p>
+  </div>
   <p v-if="this.userGuessResult === false">Bad luck, try again!
   <br>
-  <button @click="getRandomCountry" type="button">I want a new country please!</button></p>
+  <button @click="generateQuestion" type="button">I want a new country please!</button></p>
 
     <div v-if="this.userGuessResult === true">
       <p>Well done!</p>
-      <p><img :src="this.randomCountry.flag" width="150"></p>
-      <p>The capital of {{this.randomCountry.name}} is {{this.randomCountry.capital}}!</p>
-      <p>People from {{this.randomCountry.name}} are called {{this.randomCountry.demonym}}.</p>
-      <p>{{this.randomCountry.name}} is part of {{this.randomCountry.region}}.</p>
-      <p><button @click="getRandomCountry" type="button">Next!</button></p>
+      <p><img :src="this.answerCountry.flag" width="150"></p>
+      <p>The capital of {{this.answerCountry.name}} is {{this.answerCountry.capital}}!</p>
+      <p>People from {{this.answerCountry.name}} are called {{this.answerCountry.demonym}}.</p>
+      <p>{{this.answerCountry.name}} is part of {{this.answerCountry.region}}.</p>
+      <p><button @click="generateQuestion" type="button">Next!</button></p>
     </div>
 
-  </div>
-
 </div>
-
 
 </template>
 
@@ -34,8 +34,8 @@
 export default {
   data(){
     return {
-      randomCountry: null,
-      userGuess: "",
+      answerCountry: null,
+
       userGuessResult: null,
       possibleAnswers: []
     }
@@ -45,34 +45,32 @@ export default {
     getRandomCountry(){
       this.userGuessResult = null;
       const max = this.countries.length;
-      const randomIndex = Math.floor(Math.random() * Math.floor(max));
-      return this.randomCountry = this.countries[randomIndex];
+      let randomIndex = Math.floor(Math.random() * Math.floor(max));
+      while (!this.countries[randomIndex].capital){
+        randomIndex = Math.floor(Math.random() * Math.floor(max));
+      }
+      return this.countries[randomIndex];
     },
-    checkGuess(){
-      const correctCapital = this.randomCountry.capital;
-      if (this.userGuess === correctCapital){
+    checkGuess(guess){
+      const correctCapital = this.answerCountry.capital;
+      if (guess === correctCapital){
           this.userGuessResult = true;
       }else{
           this.userGuessResult = false;
       }
-        this.userGuess = ""
-      return this.userGuessResult;
     },
     getPossibleAnswers(){
-      this.possibleAnswers.push(this.randomCountry.capital);
-      const max = this.countries.length;
-      let randomIndex1 = Math.floor(Math.random() * Math.floor(max));
-      let wrongCountry1 = this.countries[randomIndex1];
-      let wrongAnswer1 = wrongCountry1.capital;
-      let randomIndex2 = Math.floor(Math.random() * Math.floor(max));
-      let wrongCountry2 = this.countries[randomIndex2];
-      let wrongAnswer2 = wrongCountry2.capital;
-      let randomIndex3 = Math.floor(Math.random() * Math.floor(max));
-      let wrongCountry3 = this.countries[randomIndex3];
-      let wrongAnswer3 = wrongCountry3.capital;
-      this.possibleAnswers.push(wrongAnswer1, wrongAnswer2, wrongAnswer3);
+      this.possibleAnswers = [];
+      this.answerCountry = this.getRandomCountry();
+      let wrongAnswer1 = this.getRandomCountry().capital;
+      let wrongAnswer2 = this.getRandomCountry().capital;
+      let wrongAnswer3 = this.getRandomCountry().capital;
+      this.possibleAnswers.push(this.answerCountry.capital, wrongAnswer1, wrongAnswer2, wrongAnswer3);
       return this.possibleAnswers
-      console.log(this.possibleAnswers);
+    },
+    generateQuestion(){
+      this.getRandomCountry();
+      this.getPossibleAnswers();
     }
   }
 }
@@ -82,7 +80,7 @@ export default {
 </style>
 
 <!-- checkGuess(){
-  const correctCapital = this.randomCountry.capital;
+  const correctCapital = this.answerCountry.capital;
   if (this.userGuess === correctCapital){
       this.userGuessResult = true;
   }else{
