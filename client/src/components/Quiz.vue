@@ -2,8 +2,7 @@
   <div>
     <h3>This is the flag quiz</h3>
     <button type="button" v-on:click="getRandomCountry" name="button">Get random country</button>
-    <flag-quiz-item :country="this.randomCountry" v-if="randomCountry"></flag-quiz-item>
-
+    <flag-quiz-item :country="this.answerCountry" v-if="answerCountry"></flag-quiz-item>
   </div>
 </template>
 
@@ -12,17 +11,18 @@
 import FlagQuizItem from './FlagQuizItem.vue'
 
 export default {
-  name: 'flag-quiz',
+  name: 'quiz',
   data(){
     return {
-      randomCountry: null
+      answerCountry: null,
+      multipleChoice: []
     }
   },
   methods: {
     getRandomCountry(){
       const max = this.countries.length;
       const randomIndex = Math.floor(Math.random() * Math.floor(max));
-      return this.randomCountry = this.countries[randomIndex];
+      return this.answerCountry = this.countries[randomIndex];
     }
   },
   props: ['countries'],

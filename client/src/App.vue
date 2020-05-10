@@ -2,14 +2,14 @@
   <div class="app">
     <h1>Worldly</h1>
     <developer-quote></developer-quote>
-    <flag-quiz :countries="countries"></flag-quiz>
+    <quiz :countries="countries"></quiz>
   </div>
 </template>
 
 <script>
 import { eventBus } from '@/main.js'
 import DeveloperQuote from '@/components/DeveloperQuote.vue'
-import FlagQuiz from '@/components/FlagQuiz.vue'
+import Quiz from '@/components/Quiz.vue'
 
 
 
@@ -28,7 +28,7 @@ export default {
 
   components: {
     'developer-quote': DeveloperQuote,
-    'flag-quiz': FlagQuiz
+    'quiz': Quiz
   }
 }
 </script>
