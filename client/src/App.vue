@@ -5,9 +5,11 @@
       <button v-on:click="select('mapQuiz')">Map Quiz</button>
       <button v-on:click="select('capitalQuiz')">Capital Quiz</button>
       <button v-on:click="select('flagQuiz')">Flag Quiz</button>
+      <button v-on:click="select('adminBackend')">Admin</button>
     </div>
     <developer-quote/>
     <outline-quiz v-if="selectedElement === 'mapQuiz'"/>
+    <admin-backend v-if="selectedElement === 'adminBackend'" :countries="countries" :mapPerformance="mapPerformance"/>
   </div>
 </template>
 
@@ -15,6 +17,7 @@
 import { eventBus } from '@/main.js'
 import DeveloperQuote from '@/components/DeveloperQuote.vue'
 import OutlineQuiz from '@/components/OutlineQuiz.vue'
+import AdminBackend from '@/components/AdminBackend.vue'
 
 
 
@@ -23,7 +26,8 @@ export default {
   data(){
     return {
       countries: [],
-      selectedElement: ''
+      mapPerformance: [],
+      selectedElement: '',
     }
   },
   mounted(){
@@ -40,6 +44,7 @@ export default {
   components: {
     'developer-quote': DeveloperQuote,
     'outline-quiz': OutlineQuiz,
+    'admin-backend': AdminBackend,
   }
 }
 </script>
