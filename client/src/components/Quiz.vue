@@ -1,15 +1,18 @@
 <template lang="html">
-  <capitals-quiz :answerCountry="this.answerCountry" :possibleAnswers="this.possibleAnswers"></capitals-quiz>
+  <div>
+    <!-- <capitals-quiz :answerCountry="this.answerCountry" :possibleAnswers="this.possibleAnswers"></capitals-quiz> -->
+    <flag-quiz :answerCountry="this.answerCountry" :possibleAnswers="this.possibleAnswers"></flag-quiz>
+  </div>
 </template>
 
 <script>
+import FlagQuiz from './FlagQuiz.vue'
 import CapitalsQuiz from './CapitalsQuiz.vue'
 import {eventBus} from '@/main.js'
 export default {
   data(){
     return {
       answerCountry: null,
-
       userGuessResult: null,
       possibleAnswers: []
     }
@@ -25,7 +28,8 @@ export default {
     })
   },
   components: {
-    'capitals-quiz': CapitalsQuiz
+    'capitals-quiz': CapitalsQuiz,
+    'flag-quiz': FlagQuiz
   },
   methods: {
     getRandomCountry(){
