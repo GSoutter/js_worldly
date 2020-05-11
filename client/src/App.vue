@@ -7,6 +7,7 @@
       <button v-on:click="select('flagQuiz')">Flag Quiz</button>
       <button v-on:click="select('adminBackend')">Admin</button>
     </div>
+    <quiz :countries="countries"></quiz>
     <developer-quote/>
     <outline-quiz v-if="selectedElement === 'mapQuiz'" :mapPerformance="mapPerformance"/>
     <admin-backend v-if="selectedElement === 'adminBackend'" :countries="countries" :mapPerformance="mapPerformance"/>
@@ -17,11 +18,11 @@
 <script>
 import { eventBus } from '@/main.js'
 import DeveloperQuote from '@/components/DeveloperQuote.vue'
+import Quiz from '@/components/Quiz.vue'
 import OutlineQuiz from '@/components/OutlineQuiz.vue'
 import AdminBackend from '@/components/AdminBackend.vue'
 import CountriesService from '@/services/CountriesService.js';
 import MapCountriesService from '@/services/MapCountriesService.js';
-import CapitalsQuiz from '@/components/CapitalsQuiz.vue'
 
 
 
@@ -64,9 +65,9 @@ export default {
   },
   components: {
     'developer-quote': DeveloperQuote,
+    'quiz': Quiz,
     'outline-quiz': OutlineQuiz,
     'admin-backend': AdminBackend,
-    'capitals-quiz': CapitalsQuiz
   }
 }
 </script>
