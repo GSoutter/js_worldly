@@ -10,8 +10,7 @@
     <developer-quote/>
     <outline-quiz v-if="selectedElement === 'mapQuiz'" :mapPerformance="mapPerformance"/>
     <admin-backend v-if="selectedElement === 'adminBackend'" :countries="countries" :mapPerformance="mapPerformance"/>
-
-    <capitals-quiz :countries="countries"></capitals-quiz>
+    <capitals-quiz v-if="selectedElement === 'capitalQuiz'" :countries="countries"></capitals-quiz>
   </div>
 </template>
 
