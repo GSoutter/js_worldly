@@ -9,7 +9,7 @@
 <script>
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
-import * as am4maps from "@amcharts/amcharts4/maps";
+// import * as am4maps from "@amcharts/amcharts4/maps";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 
 
@@ -33,18 +33,17 @@ export default {
     this.chart.layout = "horizontal";
 
     // sets chart data as mapPerformance data
-    let chartData = this.mapPerformance
 
     // creates subchart for correct answer bars.
     let leftChart = this.chart.createChild(am4charts.XYChart);
     leftChart.paddingRight = 0;
-    leftChart.data = JSON.parse(JSON.stringify(chartData));
+    leftChart.data = JSON.parse(JSON.stringify(this.mapMostInaccurate));
 
     // Creates axes categories
     let leftCategoryAxis = leftChart.yAxes.push(new am4charts.CategoryAxis());
     leftCategoryAxis.dataFields.category = "name";
     leftCategoryAxis.renderer.grid.template.location = 0;
-    // leftCategoryAxis.renderer.inversed = true;
+    leftCategoryAxis.renderer.inversed = true;
     leftCategoryAxis.renderer.minGridDistance = 10;
 
     // formats axes display
@@ -55,54 +54,57 @@ export default {
     leftValueAxis.strictMinMax = true;
 
     leftValueAxis.numberFormatter = new am4core.NumberFormatter();
-    leftValueAxis.numberFormatter.numberFormat = "#.#";
+    leftValueAxis.numberFormatter.numberFormat = "#.#'%'";
 
     // Create series
     let leftSeries = leftChart.series.push(new am4charts.ColumnSeries());
-    leftSeries.dataFields.valueX = "correct_answers";
-    // leftSeries.dataFields.valueXShow = "correct_answers";
+    leftSeries.dataFields.valueX = "map_accuracy";
+    leftSeries.dataFields.subValueX = "correct_answers";
+    leftSeries.dataFields.subTwoValueX = "wrong_answers";
+    // leftSeries.dataFields.valueXShow = "percent";
     // leftSeries.calculatePercent = true;
+    console.log(leftSeries.dataFields);
     leftSeries.dataFields.categoryY = "name";
     leftSeries.interpolationDuration = 1000;
-    leftSeries.columns.template.tooltipText = "{categoryY}: {valueX}";
+    leftSeries.columns.template.tooltipText = "{categoryY}: {valueX.formatNumber('#.0')}% Correct: {subValueX} Wrong:{subTwoValueX}";
     //maleSeries.sequencedInterpolation = true;
 
     // creates subchart for right answer bars.
     let rightChart = this.chart.createChild(am4charts.XYChart);
-    rightChart.paddingRight = 0;
-    rightChart.data = JSON.parse(JSON.stringify(chartData));
+    rightChart.paddingLeft = 0;
+    rightChart.data = JSON.parse(JSON.stringify(this.mapMostAccurate));
 
     // Creates axes categories
     let rightCategoryAxis = rightChart.yAxes.push(new am4charts.CategoryAxis());
+    rightCategoryAxis.renderer.inversed = true;
     rightCategoryAxis.renderer.opposite = true;
     rightCategoryAxis.dataFields.category = "name";
     rightCategoryAxis.renderer.grid.template.location = 0;
-    //rightCategoryAxis.renderer.inversed = true;
     rightCategoryAxis.renderer.minGridDistance = 10;
 
     // formats axes display
     let rightValueAxis = rightChart.xAxes.push(new am4charts.ValueAxis());
-    rightValueAxis.renderer.inversed = true;
     rightValueAxis.min = 0;
     rightValueAxis.max = 100;
     rightValueAxis.strictMinMax = true;
     rightValueAxis.numberFormatter = new am4core.NumberFormatter();
-    rightValueAxis.numberFormatter.numberFormat = "#.#";
+    rightValueAxis.numberFormatter.numberFormat = "#.#'%'";
     rightValueAxis.renderer.minLabelPosition = 0.01;
 
     // Create series
     let rightSeries = rightChart.series.push(new am4charts.ColumnSeries());
-    rightSeries.dataFields.valueX = "right_answers";
-    // rightSeries.dataFields.valueXShow = "right_answers";
+    rightSeries.dataFields.valueX = "map_accuracy";
+    // rightSeries.dataFields.valueXShow = "percent";
     // rightSeries.calculatePercent = true;
+    rightSeries.dataFields.subValueX = "correct_answers";
+    rightSeries.dataFields.subTwoValueX = "wrong_answers";
     rightSeries.fill = rightChart.colors.getIndex(4);
+    rightSeries.stroke = rightSeries.fill;
 
-    rightSeries.interpolationDuration = 1000;
-    rightSeries.columns.template.tooltipText = "{categoryY}: {valueX}";
     //maleSeries.sequencedInterpolation = true;
+    rightSeries.columns.template.tooltipText = "{categoryY}: {valueX.formatNumber('#.0')}% Correct: {subValueX} Wrong:{subTwoValueX}";
     rightSeries.dataFields.categoryY = "name";
     rightSeries.interpolationDuration = 1000;
-
 
 
   }, // mounted end
@@ -121,6 +123,6 @@ export default {
 
 .chart{
   height: 600px;
-  font-size: 10px;
+  font-size: 16px;
 }
 </style>

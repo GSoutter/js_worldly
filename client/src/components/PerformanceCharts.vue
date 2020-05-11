@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="">
     <h3>Hello</h3>
-    <map-chart :mapMostAccurate="mapMostAccurate" :mapMostInaccurate="mapMostInaccurate" />
+    <map-chart v-if="mapMostInaccurate" :mapMostAccurate="mapMostAccurate" :mapMostInaccurate="mapMostInaccurate" />
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
   methods: {
     getAccuracy: function(array, rightKey, wrongKey, fieldName){
       for (let country of array) {
-        country[fieldName] = country[rightKey] / (country[wrongKey] + country[rightKey])
+        country[fieldName] = (country[rightKey] / (country[wrongKey] + country[rightKey]))*100
       }
       return array
     },
