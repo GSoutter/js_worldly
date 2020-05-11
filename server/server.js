@@ -11,8 +11,7 @@ const parser = require('body-parser')
 app.use(parser.json());
 app.use(cors())
 
-
-
+// For flag and capital quiz database access
 MongoClient.connect('mongodb://localhost:27017')
 .then((client) => {
   const db = client.db('worldly_GP_wk10');
@@ -23,6 +22,8 @@ MongoClient.connect('mongodb://localhost:27017')
 })
 .catch(console.error);
 
+
+// For map quiz database access
 MongoClient.connect('mongodb://localhost:27017')
 .then((client) => {
   const db = client.db('worldly_GP_wk10');
@@ -37,12 +38,14 @@ app.get('/', (req, res) => {
   res.send('Hello World')
 })
 
+// server side api request
 app.get('/restCountries', (req, res) => {
   const url = 'https://restcountries.eu/rest/v2/all';
   fetch(url)
   .then(jsonData => jsonData.json())
   .then(data => res.json(data));
 });
+
 
 
 app.listen(3000, function () {

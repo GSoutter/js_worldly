@@ -14,13 +14,16 @@ export default {
   data(){
     return{
       mapPerformanceAccuracy: [],
-      mapMostAccurate: null,
-      mapMostInaccurate: null,
+      mapMostAccurate: [],
+      mapMostInaccurate: [],
     }
   },
   mounted() {
+    // calculates accuracy of guesses
     this.mapPerformanceAccuracy = this.getAccuracy(this.mapPerformance, 'correct_answers','wrong_answers', 'map_accuracy' )
+    // gets 10 countries where the user has performed the best
     this.mapMostAccurate = this.getTopTenAccurate(this.mapPerformanceAccuracy, 'correct_answers','wrong_answers', 'map_accuracy', true )
+    // gets 10 countries where the user has performed the worst
     this.mapMostInaccurate = this.getTopTenAccurate(this.mapPerformanceAccuracy, 'correct_answers','wrong_answers', 'map_accuracy', false )
 
 
@@ -28,6 +31,7 @@ export default {
 
   methods: {
     getAccuracy: function(array, rightKey, wrongKey, fieldName){
+      // loops through array, calculating guess accuracy and adding to object.
       for (let country of array) {
         country[fieldName] = (country[rightKey] / (country[wrongKey] + country[rightKey]))*100
       }
@@ -38,14 +42,14 @@ export default {
       const accuracyArray = []
       let sortedArray = []
 
-      // check if array is to be sorted by most of least accurate
+      // check if array is to be sorted by most or least accurate
       if (isAccurate) {
         sortedArray = array.sort((a,b) => {return b[fieldName] - a[fieldName]})
       } else {
         sortedArray = array.sort((a,b) => {return a[fieldName] - b[fieldName]})
       }
 
-      // cycles through sorted array check if there are greater and 20 answers, pushes to array. Once there are 10 items it returns.
+      // loops through sorted array. Checks if there are greater than 20 answers, pushes to array. Once there are 10 items it returns.
       for (let country of sortedArray) {
         let totalAnswers = country[rightKey] + country[wrongKey]
         if ((totalAnswers > 20)) {
@@ -55,6 +59,7 @@ export default {
           return accuracyArray
         }
       }
+      // return to catch if there are less than 10 values.
       return accuracyArray
     },
   },
