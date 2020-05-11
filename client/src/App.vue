@@ -10,6 +10,8 @@
     <developer-quote/>
     <outline-quiz v-if="selectedElement === 'mapQuiz'" :mapPerformance="mapPerformance"/>
     <admin-backend v-if="selectedElement === 'adminBackend'" :countries="countries" :mapPerformance="mapPerformance"/>
+
+    <capitals-quiz :countries="countries"></capitals-quiz>
   </div>
 </template>
 
@@ -20,8 +22,7 @@ import OutlineQuiz from '@/components/OutlineQuiz.vue'
 import AdminBackend from '@/components/AdminBackend.vue'
 import CountriesService from '@/services/CountriesService.js';
 import MapCountriesService from '@/services/MapCountriesService.js';
-
-
+import CapitalsQuiz from '@/components/CapitalsQuiz.vue'
 
 
 
@@ -66,6 +67,7 @@ export default {
     'developer-quote': DeveloperQuote,
     'outline-quiz': OutlineQuiz,
     'admin-backend': AdminBackend,
+    'capitals-quiz': CapitalsQuiz
   }
 }
 </script>
