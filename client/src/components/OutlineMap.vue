@@ -125,6 +125,9 @@ export default {
         const countryPerformanceObject = this.performanceData.find(country => country.name === this.answerCountry.name)
         countryPerformanceObject.correct_answers += 1
         console.log(countryPerformanceObject.name, "correct: ",countryPerformanceObject.correct_answers);
+        
+        MapCountriesService.updateCountry(countryPerformanceObject._id, countryPerformanceObject)
+              .then(resCountryItem => eventBus.$emit('updated-amMap-track-item', resCountryItem))
         return this.answerCorrect = true
       } else {
         // result is false. finds element. Increments wrong answer by on. logs for error becking. sets answer to false. Although in this implenation is redundant.
@@ -132,6 +135,9 @@ export default {
         console.log('Performance object: ', countryPerformanceObject);
         countryPerformanceObject.wrong_answers += 1
         console.log(countryPerformanceObject.name, "Wrong: ", countryPerformanceObject.wrong_answers);
+
+        MapCountriesService.updateCountry(countryPerformanceObject._id, countryPerformanceObject)
+              .then(resCountryItem => eventBus.$emit('updated-amMap-track-item', resCountryItem))
 
         return this.answerCorrect = false
       }
