@@ -7,11 +7,10 @@
       <button v-on:click="select('flagQuiz')">Flag Quiz</button>
       <button v-on:click="select('adminBackend')">Admin</button>
     </div>
-    <quiz :countries="countries"></quiz>
+    <quiz v-if="selectedElement === 'capitalQuiz'|| selectedElement === 'flagQuiz' " :countries="countries" :selectedElement="selectedElement"></quiz>
     <developer-quote/>
     <outline-quiz v-if="selectedElement === 'mapQuiz'" :mapPerformance="mapPerformance"/>
     <admin-backend v-if="selectedElement === 'adminBackend'" :countries="countries" :mapPerformance="mapPerformance"/>
-    <capitals-quiz v-if="selectedElement === 'capitalQuiz'" :countries="countries"></capitals-quiz>
   </div>
 </template>
 

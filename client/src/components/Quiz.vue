@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
-    <!-- <capitals-quiz :answerCountry="this.answerCountry" :possibleAnswers="this.possibleAnswers"></capitals-quiz> -->
-    <flag-quiz :answerCountry="this.answerCountry" :possibleAnswers="this.possibleAnswers"></flag-quiz>
+    <capitals-quiz v-if="selectedElement === 'capitalQuiz'" :answerCountry="this.answerCountry" :possibleAnswers="this.possibleAnswers"></capitals-quiz>
+    <flag-quiz v-if="selectedElement === 'flagQuiz'" :answerCountry="this.answerCountry" :possibleAnswers="this.possibleAnswers"></flag-quiz>
   </div>
 </template>
 
@@ -17,7 +17,12 @@ export default {
       possibleAnswers: []
     }
   },
-  props: ['countries'],
+  props: ['countries', 'selectedElement'],
+  watch: {
+    selectedElement: function(){
+      this.generateQuestion();
+    }
+  },
   mounted() {
     eventBus.$on('guess-selected', (payload) => {
       this.checkGuess(payload);
