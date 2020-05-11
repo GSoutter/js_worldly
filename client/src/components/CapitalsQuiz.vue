@@ -52,6 +52,9 @@ export default {
           this.userGuessResult = false;
       }
     },
+    // checkGuess() will compare the correct country's capital to the user's
+    // guess. The result is used to conditionally render feedback to the user
+    // in the html.
   }
 }
 

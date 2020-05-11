@@ -75,18 +75,6 @@ export default {
     // shuffleArray() randomises the indexes of the array, so that the correct
     // answer isn't always at the (default) first index.
 
-
-    // checkGuess(guess){
-    //   if (guess === this.answerCountry){
-    //       this.userGuessResult = true;
-    //   }else{
-    //       this.userGuessResult = false;
-    //   }
-    // },
-
-    // checkGuess() will compare the correct country's capital to the user's
-    // guess. The result is used to conditionally render feedback to the user
-    // in the html.
   }
 }
 
