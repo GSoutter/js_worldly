@@ -2,13 +2,16 @@
   <div class="app">
     <h1>Worldly</h1>
     <div class="navbar">
-      <button type="button" v-on:click="selectMapQuiz">Map Quiz</button>
-      <button type="button" v-on:click="selectCapitalQuiz">capital Quiz</button>
-      <button type="button" v-on:click="selectFlagQuiz">Flag Quiz</button>
+      <button v-on:click="select('mapQuiz')">Map Quiz</button>
+      <button v-on:click="select('capitalQuiz')">Capital Quiz</button>
+      <button v-on:click="select('flagQuiz')">Flag Quiz</button>
+      <button v-on:click="select('adminBackend')">Admin</button>
     </div>
-    <developer-quote></developer-quote>
     <quiz :countries="countries"></quiz>
-    <!-- <capitals-quiz :countries="countries"></capitals-quiz> -->
+    <developer-quote/>
+    <outline-quiz v-if="selectedElement === 'mapQuiz'" :mapPerformance="mapPerformance"/>
+    <admin-backend v-if="selectedElement === 'adminBackend'" :countries="countries" :mapPerformance="mapPerformance"/>
+    <capitals-quiz v-if="selectedElement === 'capitalQuiz'" :countries="countries"></capitals-quiz>
   </div>
 </template>
 
@@ -16,7 +19,10 @@
 import { eventBus } from '@/main.js'
 import DeveloperQuote from '@/components/DeveloperQuote.vue'
 import Quiz from '@/components/Quiz.vue'
-import CapitalsQuiz from '@/components/CapitalsQuiz.vue'
+import OutlineQuiz from '@/components/OutlineQuiz.vue'
+import AdminBackend from '@/components/AdminBackend.vue'
+import CountriesService from '@/services/CountriesService.js';
+import MapCountriesService from '@/services/MapCountriesService.js';
 
 
 
@@ -25,34 +31,43 @@ export default {
   data(){
     return {
       countries: [],
-      selectedElement: ""
+      mapPerformance: [],
+      selectedElement: '',
     }
   },
   mounted(){
-    fetch('https://restcountries.eu/rest/v2/all')
-    .then(result => result.json())
+    CountriesService.getCountries()
     .then(countries => this.countries = countries)
+
+    eventBus.$on('rest-api-data', (serverReturn) => {
+      this.countries = serverReturn
+    })
+
+    MapCountriesService.getCountries()
+    .then(countries => this.mapPerformance = countries)
+
+    eventBus.$on('amMap-api-data', (serverReturn) => {
+      this.mapPerformance = serverReturn
+    })
+
+    eventBus.$on('updated-amMap-track-item', (resCountryItem) => {
+      const index = this.mapPerformance.findIndex(country => country._id === resCountryItem._id)
+      this.bucketList.splice(index, 1, resCountryItem)
+      console.log(resCountryItem);
+    })
+
   },
   methods: {
-    selectMapQuiz(){
-      this.selectedElement = "mapQuiz";
-      return this.selectedElement
-      console.log(this.selectedElement);
-    },
-    selectCapitalQuiz(){
-      this.selectedElement = "calitalQuiz";
-      return this.selectedElement
-    },
-    selectFlagQuiz(){
-      this.selectedElement = "flagQuiz";
-      return this.selectedElement
+    select(element) {
+      this.selectedElement = element
     }
 
   },
   components: {
     'developer-quote': DeveloperQuote,
     'quiz': Quiz,
-    'capitals-quiz': CapitalsQuiz
+    'outline-quiz': OutlineQuiz,
+    'admin-backend': AdminBackend,
   }
 }
 </script>
@@ -60,6 +75,6 @@ export default {
 <style lang="css" scoped>
 .app {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-Helvetica, Arial, "Lucida Grande", sans-serif;
+  Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 </style>
