@@ -14,7 +14,7 @@
 <script>
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
-import * as am4maps from "@amcharts/amcharts4/maps"
+import * as am4maps from "@amcharts/amcharts4/maps";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import { eventBus } from '@/main.js'
@@ -125,7 +125,7 @@ export default {
         const countryPerformanceObject = this.performanceData.find(country => country.name === this.answerCountry.name)
         countryPerformanceObject.correct_answers += 1
         console.log(countryPerformanceObject.name, "correct: ",countryPerformanceObject.correct_answers);
-        
+
         MapCountriesService.updateCountry(countryPerformanceObject._id, countryPerformanceObject)
               .then(resCountryItem => eventBus.$emit('updated-amMap-track-item', resCountryItem))
         return this.answerCorrect = true
