@@ -57,7 +57,7 @@ export default {
         const updatedObject = {
           flag_correct_ans: this.answerCountry.flag_correct_ans
         }
-        this.updateCountryFlag(id, updatedObject)
+        this.updateCountry(id, updatedObject)
 
         return this.userGuessResult = true;
       }else{
@@ -68,14 +68,14 @@ export default {
         const updatedObject = {
           flag_wrong_ans: this.answerCountry.flag_wrong_ans
         }
-        this.updateCountryFlag(id, updatedObject)
+        this.updateCountry(id, updatedObject)
 
         return this.userGuessResult = false;
       }
     },
-    updateCountryFlag(id, updatedObject){
+    updateCountry(id, updatedObject){
       CountriesService.updateCountry(id, updatedObject)
-      .then(resCountryItem => eventBus.$emit('updated-flag-track-item', resCountryItem))
+      .then(resCountryItem => eventBus.$emit('updated-country-track-item', resCountryItem))
     }
     // checkGuess() will compare the correct country's capital to the user's
     // guess. The result is used to conditionally render feedback to the user
