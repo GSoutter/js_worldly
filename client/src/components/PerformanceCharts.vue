@@ -15,7 +15,7 @@ export default {
     return{
       mapPerformanceAccuracy: [],
       mapMostAccurate: [],
-      mapMostInaccurate: [],
+      mapMostInaccurate: null,
     }
   },
   mounted() {
