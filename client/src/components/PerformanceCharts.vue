@@ -1,8 +1,37 @@
 <template lang="html">
   <div class="">
-    <h3>Accuracy Heatmap</h3>
-    <!-- <map-chart v-if="mapMostInaccurate" :mapMostAccurate="mapMostAccurate" :mapMostInaccurate="mapMostInaccurate" /> -->
-    <heat-map v-if="mapPerformanceAccuracy" :mapPerformanceAccuracy="mapPerformanceAccuracyOnly" />
+    <h2>Performance Charts</h2>
+    <button v-on:click="select('mapQuiz')">Map Quiz</button>
+    <button v-on:click="select('capitalQuiz')">Capital Quiz</button>
+    <button v-on:click="select('flagQuiz')">Flag Quiz</button>
+
+    <div v-if="selectedElement === 'mapQuiz'">
+      <h2>Map Quiz</h2>
+
+      <button v-on:click="selectChart('heatmap')">Heatmap</button>
+      <button v-on:click="selectChart('table')">Top 10 Table</button>
+
+      <div v-if="chartSelect === 'table'">
+        <h3>Accuracy Table</h3>
+        <map-chart v-if="mapMostInaccurate" :mapMostAccurate="mapMostAccurate" :mapMostInaccurate="mapMostInaccurate" />
+      </div>
+
+      <div v-if="chartSelect === 'heatmap'">
+        <h3>Accuracy Heatmap</h3>
+        <heat-map v-if="mapPerformanceAccuracy" :mapPerformanceAccuracy="mapPerformanceAccuracyOnly" />
+      </div>
+    </div>
+
+    <div v-if="selectedElement === 'capitalQuiz'">
+      <h3>Capital Quiz: Accuracy Table</h3>
+      <!-- <capital-chart v-if="mapMostInaccurate" :mapMostAccurate="mapMostAccurate" :mapMostInaccurate="mapMostInaccurate" /> -->
+    </div>
+
+    <div v-if="selectedElement === 'flagQuiz'">
+      <h3>Flag Quiz: Accuracy Table</h3>
+      <!-- <capital-chart v-if="mapMostInaccurate" :mapMostAccurate="mapMostAccurate" :mapMostInaccurate="mapMostInaccurate" /> -->
+    </div>
+
   </div>
 </template>
 
@@ -15,10 +44,13 @@ export default {
   props: ['countries', 'mapPerformance'],
   data(){
     return{
+      selectedElement: null,
+      chartSelect: null,
       mapPerformanceAccuracy: null,
       mapPerformanceAccuracyOnly: null,
       mapMostAccurate: null,
       mapMostInaccurate: null,
+
     }
   },
   mounted() {
@@ -34,6 +66,12 @@ export default {
   }, // mounted end
 
   methods: {
+    select: function(element) {
+      this.selectedElement = element
+    },
+    selectChart: function(element) {
+      this.chartSelect = element
+    },
     getAccuracy: function(array, rightKey, wrongKey, fieldName){
       // loops through array, calculating guess accuracy and adding to object.
       for (let country of array) {
