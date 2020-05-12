@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div class="performance">
     <h3>Hello</h3>
     <map-chart v-if="mapMostInaccurate" :mapMostAccurate="mapMostAccurate" :mapMostInaccurate="mapMostInaccurate" />
   </div>
@@ -75,4 +75,6 @@ export default {
   height: 600px;
   font-size: 10px;
 }
+
+
 </style>

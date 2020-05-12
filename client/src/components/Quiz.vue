@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="quiz">
     <capitals-quiz v-if="selectedElement === 'capitalQuiz'" :answerCountry="this.answerCountry" :possibleAnswers="this.possibleAnswers"></capitals-quiz>
     <flag-quiz v-if="selectedElement === 'flagQuiz'" :answerCountry="this.answerCountry" :possibleAnswers="this.possibleAnswers"></flag-quiz>
   </div>
@@ -30,7 +30,10 @@ export default {
 
     eventBus.$on('play-quiz', () => {
       this.generateQuestion();
-    })
+    });
+
+    this.generateQuestion();
+
   },
   components: {
     'capitals-quiz': CapitalsQuiz,
@@ -90,4 +93,17 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.quiz {
+  background: RGBA(245, 239, 203, 0.75);
+  display: flex;
+  border-radius: 10px;
+  justify-content: center;
+  height: 600px;
+  width: 800px;
+  font-size: 20px;
+}
+
+
+
 </style>

@@ -1,12 +1,13 @@
 <template lang="html">
   <div class="">
-    <button v-on:click="randomArrayItem(polygonData)">Generate another country</button>
-    <h4 v-if="answerCountry">Find {{this.answerCountry.name}}</h4>
-    <h5 v-if="selectedCountry">you have selected {{this.selectedCountry.dataItem.dataContext.name}}</h5>
-    <button  v-if="answerCorrect" v-on:click="resetAnswer">Well done. Another?</button>
+
 
     <div class="" id="chartdiv">
     </div>
+    <button v-on:click="randomArrayItem(polygonData)">Give me a country!</button>
+    <h4 v-if="answerCountry">Find {{this.answerCountry.name}}</h4>
+    <h5 v-if="selectedCountry">you have selected {{this.selectedCountry.dataItem.dataContext.name}}</h5>
+    <button v-if="answerCorrect" v-on:click="resetAnswer">Well done! Another round?</button>
   </div>
 
 </template>
@@ -152,6 +153,7 @@ export default {
 
 #chartdiv {
   width: 100%;
-  height: 600px;
+  height: 400px;
+  margin-top: 20px;
 }
 </style>
