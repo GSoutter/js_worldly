@@ -36,10 +36,10 @@ export default {
       let performanceArray = []
       if (isRandom) {
         for (let country of geoDataArray){
-          country.flag_correct_ans =  Math.floor(Math.random() * 100)
-          country.flag_wrong_ans =  Math.floor(Math.random() * 100)
-          country.capital_correct_ans =  Math.floor(Math.random() * 100)
-          country.capital_wrong_ans =  Math.floor(Math.random() * 100)
+          country.flag_correct_ans =  Math.floor(Math.random() * 49)+1
+          country.flag_wrong_ans =  Math.floor(Math.random() * 49)+1
+          country.capital_correct_ans =  Math.floor(Math.random() * 49)+1
+          country.capital_wrong_ans =  Math.floor(Math.random() * 49)+1
 
           performanceArray.push(country)
         }
@@ -73,8 +73,8 @@ export default {
           name: country.properties.name,
         }
         if (isRandom) {
-          entry.correct_answers = Math.floor(Math.random() * 100)
-          entry.wrong_answers = Math.floor(Math.random() * 100)
+          entry.correct_answers = Math.floor(Math.random() * 49)+1
+          entry.wrong_answers = Math.floor(Math.random() * 49)+1
         }
         if (!isRandom) {
           entry.correct_answers = 0

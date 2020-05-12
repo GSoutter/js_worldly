@@ -14,9 +14,9 @@
 <script>
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
-import * as am4maps from "@amcharts/amcharts4/maps"
+import * as am4maps from "@amcharts/amcharts4/maps";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
+// import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import { eventBus } from '@/main.js'
 import MapCountriesService from '@/services/MapCountriesService.js';
 
@@ -26,7 +26,7 @@ am4core.useTheme(am4themes_animated);
 
 export default {
   name: 'outline-map',
-  props: ['performanceData'],
+  props: ['performanceData', 'amMapData'],
   data() {
     return {
       map: null,
@@ -40,15 +40,15 @@ export default {
   },
   mounted() {
     this.map = am4core.create("chartdiv", am4maps.MapChart)
-    this.map.geodata = am4geodata_worldLow
+    this.map.geodata = this.amMapData
     this.map.projection = new am4maps.projections.Miller()
     var polygonSeries = this.map.series.push(new am4maps.MapPolygonSeries())
 
-    this.worldCountryPolygonData = am4geodata_worldLow.features
+    this.worldCountryPolygonData = this.amMapData.features
     // assign data to polygonData variable stored in vue. To allow for randomising country.  Doesn't work the other way round, this may be due to polygon series taking time to load, and is overwritten severing connection to the polygonData varible. Tried looking for a proper way to get this data but could not.
     polygonSeries._data = this.polygonData
 
-    //excludes antartica from polygon data preventing
+    //excludes antartica from polygon data
     polygonSeries.exclude = ["AQ"]
     polygonSeries.useGeodata = true
 
@@ -125,14 +125,14 @@ export default {
         const countryPerformanceObject = this.performanceData.find(country => country.name === this.answerCountry.name)
         countryPerformanceObject.correct_answers += 1
         console.log(countryPerformanceObject.name, "correct: ",countryPerformanceObject.correct_answers);
-        
+
         MapCountriesService.updateCountry(countryPerformanceObject._id, countryPerformanceObject)
-              .then(resCountryItem => eventBus.$emit('updated-amMap-track-item', resCountryItem))
+        .then(resCountryItem => eventBus.$emit('updated-amMap-track-item', resCountryItem))
+
         return this.answerCorrect = true
       } else {
-        // result is false. finds element. Increments wrong answer by on. logs for error becking. sets answer to false. Although in this implenation is redundant.
+        // result is false. finds element. Increments wrong answer by on. logs for error checking. sets answer to false. Although in this implenation is redundant.
         const countryPerformanceObject = this.performanceData.find(country => country.name === this.answerCountry.name)
-        console.log('Performance object: ', countryPerformanceObject);
         countryPerformanceObject.wrong_answers += 1
         console.log(countryPerformanceObject.name, "Wrong: ", countryPerformanceObject.wrong_answers);
 

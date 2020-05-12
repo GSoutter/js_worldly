@@ -5,12 +5,15 @@
       <button v-on:click="select('mapQuiz')">Map Quiz</button>
       <button v-on:click="select('capitalQuiz')">Capital Quiz</button>
       <button v-on:click="select('flagQuiz')">Flag Quiz</button>
+      <button v-on:click="select('performanceCharts')">Performance Charts</button>
       <button v-on:click="select('adminBackend')">Admin</button>
     </div>
     <quiz v-if="selectedElement === 'capitalQuiz'|| selectedElement === 'flagQuiz' " :countries="countries" :selectedElement="selectedElement"></quiz>
     <developer-quote/>
     <outline-quiz v-if="selectedElement === 'mapQuiz'" :mapPerformance="mapPerformance"/>
     <admin-backend v-if="selectedElement === 'adminBackend'" :countries="countries" :mapPerformance="mapPerformance"/>
+    <performance-charts v-if="selectedElement === 'performanceCharts'" :countries="countries" :mapPerformance="mapPerformance"/>
+
   </div>
 </template>
 
@@ -19,6 +22,7 @@ import { eventBus } from '@/main.js'
 import DeveloperQuote from '@/components/DeveloperQuote.vue'
 import Quiz from '@/components/Quiz.vue'
 import OutlineQuiz from '@/components/OutlineQuiz.vue'
+import PerformanceCharts from '@/components/PerformanceCharts.vue'
 import AdminBackend from '@/components/AdminBackend.vue'
 import CountriesService from '@/services/CountriesService.js';
 import MapCountriesService from '@/services/MapCountriesService.js';
@@ -67,6 +71,8 @@ export default {
     'quiz': Quiz,
     'outline-quiz': OutlineQuiz,
     'admin-backend': AdminBackend,
+    'performance-charts': PerformanceCharts,
+
   }
 }
 </script>
