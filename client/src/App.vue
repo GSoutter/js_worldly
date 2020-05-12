@@ -63,9 +63,21 @@ export default {
 
     eventBus.$on('updated-amMap-track-item', (resCountryItem) => {
       const index = this.mapPerformance.findIndex(country => country._id === resCountryItem._id)
-      this.bucketList.splice(index, 1, resCountryItem)
+      this.mapPerformance.splice(index, 1, resCountryItem)
       console.log(resCountryItem);
     })
+
+    eventBus.$on('updated-country-track-item', (resCountryItem) => {
+      const index = this.mapPerformance.findIndex(country => country._id === resCountryItem._id)
+      this.countries.splice(index, 1, resCountryItem)
+      console.log(resCountryItem);
+    })
+
+    // eventBus.$on('updated-capital-track-item', (resCountryItem) => {
+    //   const index = this.mapPerformance.findIndex(country => country._id === resCountryItem._id)
+    //   this.bucketList.splice(index, 1, resCountryItem)
+    //   console.log(resCountryItem);
+    // })
 
   },
   methods: {
