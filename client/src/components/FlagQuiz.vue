@@ -1,26 +1,30 @@
 <template lang="html">
 
 <div>
-  <h3>Flag Quiz</h3>
-  <button @click="generateQuestion" type="button" v-if="answerCountry === null">Click to begin!</button>
+  <h1>Flag Quiz</h1>
 
   <img v-if="answerCountry" v-bind:src="this.answerCountry.flag" alt="Flag">
 
-  <div v-if="answerCountry">
-    <h2>What country is this the flag of?</h2>
+  <div class="question" v-if="answerCountry && !userGuessResult">
+    <p>What country is this the flag of?</p>
     <div v-if="possibleAnswers">
       <button v-on:click="checkGuess(possibleAnswers[0])">{{possibleAnswers[0].name}}</button>
+      <br>
       <button v-on:click="checkGuess(possibleAnswers[1])">{{possibleAnswers[1].name}}</button>
+      <br>
       <button v-on:click="checkGuess(possibleAnswers[2])">{{possibleAnswers[2].name}}</button>
+      <br>
       <button v-on:click="checkGuess(possibleAnswers[3])">{{possibleAnswers[3].name}}</button>
+      <br>
     </div>
   </div>
 
-  <p v-if="this.userGuessResult === false">Bad luck, try again!
+  <div class="wrongAnswer"><p v-if="userGuessResult===false">Bad luck, try again!
   <br>
-  <button @click="generateQuestion" type="button">I want a new country please!</button></p>
+  <button class="wrongAnswerButton" @click="generateQuestion" type="button">I want a new country please!</button></p>
+  </div>
 
-  <div v-if="this.userGuessResult === true">
+  <div class="rightAnswer" v-if="userGuessResult">
     <p>Well done!</p>
     <p>The capital of {{this.answerCountry.name}} is {{this.answerCountry.capital}}!</p>
     <p>People from {{this.answerCountry.name}} are called {{this.answerCountry.demonym}}.</p>
@@ -86,7 +90,58 @@ export default {
 </script>
 
 <style lang="css" scoped>
-  img {
-    width: 200px;
+
+  .question {
+    text-align: center;
   }
+
+  .wrongAnswer {
+    text-align: center;
+  }
+
+  .wrongAnswerButton {
+    background-color: #b56576;
+    border: none;
+  }
+
+  .rightAnswer {
+    text-align: center;
+  }
+
+  img {
+    border: 1px black solid;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 200px;
+
+  }
+  h1 {
+    font-size: 30px;
+    text-align: center;
+  }
+
+  button {
+    background-color: #008CBA;
+    outline: 0;
+    color: white;
+    border: 2px solid #008CBA;
+    border-radius: 10px;
+    padding: 1px 10px;
+    margin-bottom: 1px;
+    margin-top: 10px;
+    width: 250px;
+    height: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    transition-duration: 0.4s;
+  }
+
+  button:hover {
+    background-color: white;
+    color: #008CBA;
+  }
+
 </style>

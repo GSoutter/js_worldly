@@ -1,20 +1,28 @@
 <template lang="html">
+
   <div class="app">
+    <header>
     <h1>Worldly</h1>
-    <div class="navbar">
-      <button v-on:click="select('mapQuiz')">Map Quiz</button>
-      <button v-on:click="select('capitalQuiz')">Capital Quiz</button>
-      <button v-on:click="select('flagQuiz')">Flag Quiz</button>
-      <button v-on:click="select('performanceCharts')">Performance Charts</button>
-      <button v-on:click="select('adminBackend')">Admin</button>
-    </div>
+    <span>
+    <nav>
+    <button v-on:click="select('mapQuiz')">Map Quiz</button>
+    <button v-on:click="select('capitalQuiz')">Capitals Quiz</button>
+    <button v-on:click="select('flagQuiz')">Flag Quiz</button>
+    <button v-on:click="select('performanceCharts')">Performance Charts</button>
+    <button v-on:click="select('adminBackend')">Admin</button>
+    </nav>
+  </span>
+  </header>
+
+  <div class="content">
     <quiz v-if="selectedElement === 'capitalQuiz'|| selectedElement === 'flagQuiz' " :countries="countries" :selectedElement="selectedElement"></quiz>
-    <developer-quote/>
+    <!-- <developer-quote/> -->
     <outline-quiz v-if="selectedElement === 'mapQuiz'" :mapPerformance="mapPerformance"/>
     <admin-backend v-if="selectedElement === 'adminBackend'" :countries="countries" :mapPerformance="mapPerformance"/>
     <performance-charts v-if="selectedElement === 'performanceCharts'" :countries="countries" :mapPerformance="mapPerformance"/>
 
   </div>
+</div>
 </template>
 
 <script>
@@ -89,9 +97,74 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 .app {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-  Helvetica, Arial, "Lucida Grande", sans-serif;
+font-family: 'Roboto', sans-serif;}
+
+.content{
+  margin-top: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+
+}
+header {
+  background-color: RGBA(152, 193, 217, 0.8);
+  display: flex;
+  align-items: center;
+  border: 1px black solid;
+  padding: 0;
+  margin: 0;
+  content: '';
+  width: 100%;
+  position: fixed;
+  top: -5px;
+  left: -1px;
+  z-index: 2;
+}
+header > h1{
+  font-family: 'Amatic SC', cursive, serif;
+  font-size: 64px;
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+  margin-left: 20px;
+}
+
+nav{
+  margin-top: 35px;
+  margin-left: 50px;
+
+}
+
+nav button {
+  background-color: #008CBA;
+  border: none;
+  outline: 0;
+  color: white;
+  border: 2px solid #008CBA;
+  padding: 10px 25px;
+  margin-bottom: 20px;
+  margin-top: -50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  transition-duration: 0.4s;
+}
+
+nav button:hover {
+  background-color: white;
+  color: #008CBA;
+}
+
+body {
+  background-image: url('https://images.unsplash.com/photo-1500964757637-c85e8a162699?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1556&q=80');
+  background-size: auto;
 }
 </style>

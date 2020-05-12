@@ -39,6 +39,7 @@
       :mostInaccurate="flagMostInaccurate" />
     </div>
 
+
   </div>
 </template>
 
@@ -169,4 +170,6 @@ export default {
   height: 600px;
   font-size: 10px;
 }
+
+
 </style>
