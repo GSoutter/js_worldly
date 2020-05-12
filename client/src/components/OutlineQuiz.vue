@@ -1,6 +1,7 @@
 <template lang="html">
   <div class="map">
-    <h1>Outline Quiz Map</h1>
+
+    <h1>Outline Quiz Map <span id="region-prompt" v-if="!amMapData" > - Please select a region.</span></h1>
 
     <button v-on:click="setWorld()">World</button>
     <button v-on:click="setEurope()">Europe</button>
@@ -105,10 +106,11 @@ export default {
 
 .map {
   background: RGBA(245, 239, 203, 0.75);
-  border-radius: 10px;
+  border-radius: 4px;
   height: 90%;
   width: 900px;
   font-size: 20px;
+  padding: 4px;
 }
 
 
@@ -122,6 +124,7 @@ button {
   background-color: #008CBA;
   outline: 0;
   color: white;
+  border-radius: 2px;
   border: 1px solid white;
   padding: 5px 15px;
   margin-bottom: 1px;
@@ -135,6 +138,11 @@ button {
 button:hover {
   background-color: white;
   color: #008CBA;
+}
+
+#region-prompt {
+  font-size: 20px;
+  color: RGBA(0, 0, 0, 0.7);
 }
 
 </style>
