@@ -1,17 +1,20 @@
 <template lang="html">
 
-  <div>
-    <header class="navbar">
-    <h1>Worldly
+  <div class="app">
+    <header>
+    <h1>Worldly</h1>
+    <span>
+    <nav>
     <button v-on:click="select('mapQuiz')">Map Quiz</button>
     <button v-on:click="select('capitalQuiz')">Capital Quiz</button>
     <button v-on:click="select('flagQuiz')">Flag Quiz</button>
     <button v-on:click="select('performanceCharts')">Performance Charts</button>
     <button v-on:click="select('adminBackend')">Admin</button>
-  </h1>
+    </nav>
+  </span>
   </header>
 
-  <div class="app">
+  <div class="content">
     <quiz v-if="selectedElement === 'capitalQuiz'|| selectedElement === 'flagQuiz' " :countries="countries" :selectedElement="selectedElement"></quiz>
     <developer-quote/>
     <outline-quiz v-if="selectedElement === 'mapQuiz'" :mapPerformance="mapPerformance"/>
@@ -89,8 +92,15 @@ export default {
 .app {
   font-family: "Open Sans", "helvetica neue", helvetica, arial, sans-serif;
 }
-.navbar {
+
+.content{
+  margin-top: 100px;
+
+}
+header {
   background-color: RGBA(152, 193, 217, 0.8);
+  display: flex;
+  align-items: center;
   border: 1px black solid;
   padding: 0;
   margin: 0;
@@ -101,15 +111,43 @@ export default {
   left: -5px;
   z-index: 2;
 }
-.navbar h1{
+header > h1{
   font-family: 'Amatic SC', cursive, serif;
   font-size: 64px;
+  display: inline-block;
   padding: 0;
   margin: 0;
   margin-left: 20px;
 }
+
+nav{
+  margin-top: 35px;
+  margin-left: 50px;
+
+}
+
+nav button {
+  background-color: #008CBA;
+  border: none;
+  color: white;
+  border: 2px solid #008CBA;
+  padding: 10px 25px;
+  margin-bottom: 20px;
+  margin-top: -50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  transition-duration: 0.4s;
+}
+
+nav button:hover {
+  background-color: white;
+  color: #008CBA;
+}
+
 body {
   background-image: url('https://images.unsplash.com/photo-1500964757637-c85e8a162699?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1556&q=80');
-  background-size: cover;
+  background-size: auto;
 }
 </style>
