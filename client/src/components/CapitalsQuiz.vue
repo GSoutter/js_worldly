@@ -1,15 +1,18 @@
 <template lang="html">
 
 <div>
-  <h3>Capitals Quiz</h3>
-  <button @click="generateQuestion" type="button" v-if="answerCountry === null">Click to begin!</button>
+  <h1>Capitals Quiz</h1>
 
-  <div v-if="answerCountry && !userGuessResult">
-    <h2>What is the capital of {{this.answerCountry.name}}?</h2>
+  <div class="question" v-if="answerCountry && !userGuessResult">
+    <p>What is the capital of {{this.answerCountry.name}}?</p>
+    <br>
     <div v-if="possibleAnswers">
       <button v-on:click="checkGuess(possibleAnswers[0])">{{possibleAnswers[0].capital}}</button>
+      <br>
       <button v-on:click="checkGuess(possibleAnswers[1])">{{possibleAnswers[1].capital}}</button>
+      <br>
       <button v-on:click="checkGuess(possibleAnswers[2])">{{possibleAnswers[2].capital}}</button>
+      <br>
       <button v-on:click="checkGuess(possibleAnswers[3])">{{possibleAnswers[3].capital}}</button>
     </div>
   </div>
@@ -62,4 +65,27 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+h1 {
+  align-self: flex-end;
+  margin-top: 10px;
+}
+
+.question {
+  display: grid;
+  justify-content: flex-start;
+}
+
+button{
+  background-color: pink;
+  height: 30px;
+  margin: 5px;
+  font-size: 20px;
+}
+
+button:hover {
+  background-color: white;
+  color: #008CBA;
+}
+
 </style>

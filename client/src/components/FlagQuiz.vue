@@ -2,7 +2,6 @@
 
 <div>
   <h1>Flag Quiz</h1>
-  <button @click="generateQuestion" type="button" v-if="answerCountry === null">Click to begin!</button>
 
   <img v-if="answerCountry" v-bind:src="this.answerCountry.flag" alt="Flag">
 

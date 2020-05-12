@@ -30,7 +30,10 @@ export default {
 
     eventBus.$on('play-quiz', () => {
       this.generateQuestion();
-    })
+    });
+
+    this.generateQuestion();
+
   },
   components: {
     'capitals-quiz': CapitalsQuiz,
@@ -94,11 +97,13 @@ export default {
 .quiz {
   background: RGBA(245, 239, 203, 0.75);
   display: flex;
-  align-items: center;
+  border-radius: 5px;
   justify-content: center;
   height: 500px;
   width: 800px;
-  font-size: 24px;
+  font-size: 20px;
 }
+
+
 
 </style>
