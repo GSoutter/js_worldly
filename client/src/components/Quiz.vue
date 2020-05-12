@@ -97,7 +97,7 @@ export default {
 .quiz {
   background: RGBA(245, 239, 203, 0.75);
   display: flex;
-  border-radius: 5px;
+  border-radius: 10px;
   justify-content: center;
   height: 550px;
   width: 800px;

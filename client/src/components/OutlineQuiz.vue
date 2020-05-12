@@ -105,7 +105,7 @@ export default {
 
 .map {
   background: RGBA(245, 239, 203, 0.75);
-  border-radius: 5px;
+  border-radius: 10px;
   height: 90%;
   width: 900px;
   font-size: 20px;

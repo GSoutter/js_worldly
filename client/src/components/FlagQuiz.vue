@@ -103,6 +103,7 @@ export default {
     outline: 0;
     color: white;
     border: 2px solid #008CBA;
+    border-radius: 10px;
     padding: 1px 10px;
     margin-bottom: 1px;
     margin-top: 10px;

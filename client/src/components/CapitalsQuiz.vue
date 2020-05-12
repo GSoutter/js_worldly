@@ -98,6 +98,7 @@ button {
   border: none;
   outline: 0;
   color: white;
+  border-radius: 10px;
   border: 2px solid #008CBA;
   padding: 1px 10px;
   margin-bottom: 1px;
