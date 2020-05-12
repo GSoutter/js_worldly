@@ -1,14 +1,16 @@
 <template lang="html">
-  <section>
-  <div class="app">
+
+  <div>
+    <header class="navbar">
     <h1>Worldly</h1>
-    <div class="navbar">
-      <button v-on:click="select('mapQuiz')">Map Quiz</button>
-      <button v-on:click="select('capitalQuiz')">Capital Quiz</button>
-      <button v-on:click="select('flagQuiz')">Flag Quiz</button>
-      <button v-on:click="select('performanceCharts')">Performance Charts</button>
-      <button v-on:click="select('adminBackend')">Admin</button>
-    </div>
+    <button v-on:click="select('mapQuiz')">Map Quiz</button>
+    <button v-on:click="select('capitalQuiz')">Capital Quiz</button>
+    <button v-on:click="select('flagQuiz')">Flag Quiz</button>
+    <button v-on:click="select('performanceCharts')">Performance Charts</button>
+    <button v-on:click="select('adminBackend')">Admin</button>
+  </header>
+
+  <div class="app">
     <quiz v-if="selectedElement === 'capitalQuiz'|| selectedElement === 'flagQuiz' " :countries="countries" :selectedElement="selectedElement"></quiz>
     <developer-quote/>
     <outline-quiz v-if="selectedElement === 'mapQuiz'" :mapPerformance="mapPerformance"/>
@@ -16,7 +18,7 @@
     <performance-charts v-if="selectedElement === 'performanceCharts'" :countries="countries" :mapPerformance="mapPerformance"/>
 
   </div>
-</section>
+</div>
 </template>
 
 <script>
@@ -81,12 +83,21 @@ export default {
 
 <style>
 .app {
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
-  Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-family: "Open Sans", "helvetica neue", helvetica, arial, sans-serif;
+}
+.navbar {
+  background-color: blue;
+  padding: 0;
+  margin: 0;
+  content: '';
+  width: 100%;
+  position: fixed;
+  top: -5px;
+  left: -5px;
+  z-index: 2;
 }
 body {
   background-image: url('https://images.unsplash.com/photo-1500964757637-c85e8a162699?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1556&q=80');
   background-size: cover;
-  background-attachment: scroll;
 }
 </style>
