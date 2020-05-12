@@ -1,4 +1,5 @@
 <template lang="html">
+  <section>
   <div class="app">
     <h1>Worldly</h1>
     <div class="navbar">
@@ -15,6 +16,7 @@
     <performance-charts v-if="selectedElement === 'performanceCharts'" :countries="countries" :mapPerformance="mapPerformance"/>
 
   </div>
+</section>
 </template>
 
 <script>
@@ -77,9 +79,14 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style>
 .app {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
   Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+body {
+  background-image: url('https://images.unsplash.com/photo-1500964757637-c85e8a162699?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1556&q=80');
+  background-size: cover;
+  background-attachment: scroll;
 }
 </style>
