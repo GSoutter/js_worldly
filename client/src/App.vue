@@ -2,12 +2,13 @@
 
   <div>
     <header class="navbar">
-    <h1>Worldly</h1>
+    <h1>Worldly
     <button v-on:click="select('mapQuiz')">Map Quiz</button>
     <button v-on:click="select('capitalQuiz')">Capital Quiz</button>
     <button v-on:click="select('flagQuiz')">Flag Quiz</button>
     <button v-on:click="select('performanceCharts')">Performance Charts</button>
     <button v-on:click="select('adminBackend')">Admin</button>
+  </h1>
   </header>
 
   <div class="app">
@@ -82,11 +83,15 @@ export default {
 </script>
 
 <style>
+
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+
 .app {
   font-family: "Open Sans", "helvetica neue", helvetica, arial, sans-serif;
 }
 .navbar {
-  background-color: blue;
+  background-color: RGBA(152, 193, 217, 0.8);
+  border: 1px black solid;
   padding: 0;
   margin: 0;
   content: '';
@@ -95,6 +100,13 @@ export default {
   top: -5px;
   left: -5px;
   z-index: 2;
+}
+.navbar h1{
+  font-family: 'Amatic SC', cursive, serif;
+  font-size: 64px;
+  padding: 0;
+  margin: 0;
+  margin-left: 20px;
 }
 body {
   background-image: url('https://images.unsplash.com/photo-1500964757637-c85e8a162699?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1556&q=80');
