@@ -125,8 +125,11 @@ export default {
         const countryPerformanceObject = this.performanceData.find(country => country.name === this.answerCountry.name)
         countryPerformanceObject.correct_answers += 1
         console.log(countryPerformanceObject.name, "correct: ",countryPerformanceObject.correct_answers);
-
-        MapCountriesService.updateCountry(countryPerformanceObject._id, countryPerformanceObject)
+        const id = countryPerformanceObject._id
+        const updatedObject = {
+          correct_answers: countryPerformanceObject.correct_answers
+        }
+        MapCountriesService.updateCountry(id, updatedObject)
         .then(resCountryItem => eventBus.$emit('updated-amMap-track-item', resCountryItem))
 
         return this.answerCorrect = true
@@ -135,8 +138,11 @@ export default {
         const countryPerformanceObject = this.performanceData.find(country => country.name === this.answerCountry.name)
         countryPerformanceObject.wrong_answers += 1
         console.log(countryPerformanceObject.name, "Wrong: ", countryPerformanceObject.wrong_answers);
-
-        MapCountriesService.updateCountry(countryPerformanceObject._id, countryPerformanceObject)
+        const id = countryPerformanceObject._id
+        const updatedObject = {
+          wrong_answers: countryPerformanceObject.wrong_answers
+        }
+        MapCountriesService.updateCountry(id, updatedObject)
               .then(resCountryItem => eventBus.$emit('updated-amMap-track-item', resCountryItem))
 
         return this.answerCorrect = false
