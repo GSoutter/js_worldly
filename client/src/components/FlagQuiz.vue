@@ -33,8 +33,9 @@
 </template>
 
 <script>
-
+import CountriesService from '@/services/CountriesService.js';
 import {eventBus} from '@/main.js'
+
 export default {
   data(){
     return {
@@ -49,11 +50,25 @@ export default {
     },
     checkGuess(guess){
       if (guess === this.answerCountry){
-          this.userGuessResult = true;
+        this.answerCountry.flag_correct_ans += 1
+        console.log(this.answerCountry.name, "correct: ",this.answerCountry.flag_correct_ans);
+
+        this.updateCountryFlag(this.answerCountry)
+
+        return this.userGuessResult = true;
       }else{
-          this.userGuessResult = false;
+        this.answerCountry.flag_wrong_ans += 1
+        console.log(this.answerCountry.name, "incorrect: ",this.answerCountry.flag_wrong_ans);
+
+        this.updateCountryFlag(this.answerCountry)
+
+        return this.userGuessResult = false;
       }
     },
+    updateCountryFlag(country){
+      CountriesService.updateCountry(country._id, country)
+      .then(resCountryItem => eventBus.$emit('updated-flag-track-item', resCountryItem))
+    }
     // checkGuess() will compare the correct country's capital to the user's
     // guess. The result is used to conditionally render feedback to the user
     // in the html.

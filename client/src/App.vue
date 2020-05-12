@@ -59,6 +59,12 @@ export default {
       console.log(resCountryItem);
     })
 
+    eventBus.$on('updated-flag-track-item', (resCountryItem) => {
+      const index = this.mapPerformance.findIndex(country => country._id === resCountryItem._id)
+      this.bucketList.splice(index, 1, resCountryItem)
+      console.log(resCountryItem);
+    })
+
   },
   methods: {
     select(element) {
