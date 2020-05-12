@@ -27,9 +27,9 @@
 
     <div v-if="selectedElement === 'capitalQuiz'">
       <h3>Capital Quiz: Accuracy Table</h3>
-      <!-- <capital-chart v-if="capitalMostInaccurate"
+      <capital-chart v-if="capitalMostInaccurate"
       :mostAccurate="capitalMostAccurate"
-      :mostInaccurate="capitalMostInaccurate" /> -->
+      :mostInaccurate="capitalMostInaccurate" />
     </div>
 
     <div v-if="selectedElement === 'flagQuiz'">
@@ -84,10 +84,10 @@ export default {
     this.capitalPerformanceAccuracy = this.getAccuracy(this.countries,
       'capital_correct_ans','capital_wrong_ans', 'capital_accuracy' )
     // gets 10 countries where the user has performed the best
-    this.mapMostAccurate = this.getTopTenAccurate(this.capitalPerformanceAccuracy,
+    this.capitalMostAccurate = this.getTopTenAccurate(this.capitalPerformanceAccuracy,
       'capital_correct_ans','capital_wrong_ans', 'capital_accuracy', true )
     // gets 10 countries where the user has performed the worst
-    this.mapMostInaccurate = this.getTopTenAccurate(this.capitalPerformanceAccuracy,
+    this.capitalMostInaccurate = this.getTopTenAccurate(this.capitalPerformanceAccuracy,
       'capital_correct_ans','capital_wrong_ans', 'capital_accuracy', false )
 
     this.flagPerformanceAccuracy = this.getAccuracy(this.countries,
@@ -118,7 +118,7 @@ export default {
     },
     getAccuracyOnly: function(array, rightKey, wrongKey, fieldName){
       // loops through array, calculating guess accuracy and adding to object.
-      const newArray = []
+      let newArray = []
       for (let country of array) {
         let entry = {
           id: country.id,
@@ -130,7 +130,7 @@ export default {
     },
 
     getTopTenAccurate: function(array, rightKey, wrongKey, fieldName, isAccurate){
-      const accuracyArray = []
+      let accuracyArray = []
       let sortedArray = []
 
       // check if array is to be sorted by most or least accurate
