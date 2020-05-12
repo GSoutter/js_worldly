@@ -1,26 +1,30 @@
 <template lang="html">
   <div class="">
-    <h3>Hello</h3>
-    <map-chart v-if="mapMostInaccurate" :mapMostAccurate="mapMostAccurate" :mapMostInaccurate="mapMostInaccurate" />
+    <h3>Accuracy Heatmap</h3>
+    <!-- <map-chart v-if="mapMostInaccurate" :mapMostAccurate="mapMostAccurate" :mapMostInaccurate="mapMostInaccurate" /> -->
+    <heat-map v-if="mapPerformanceAccuracy" :mapPerformanceAccuracy="mapPerformanceAccuracyOnly" />
   </div>
 </template>
 
 <script>
 import MapChart from '@/components/charts/MapChart.vue'
+import HeatMap from '@/components/charts/HeatMap.vue'
 
 export default {
   name: "performance-charts",
   props: ['countries', 'mapPerformance'],
   data(){
     return{
-      mapPerformanceAccuracy: [],
-      mapMostAccurate: [],
+      mapPerformanceAccuracy: null,
+      mapPerformanceAccuracyOnly: null,
+      mapMostAccurate: null,
       mapMostInaccurate: null,
     }
   },
   mounted() {
     // calculates accuracy of guesses
     this.mapPerformanceAccuracy = this.getAccuracy(this.mapPerformance, 'correct_answers','wrong_answers', 'map_accuracy' )
+    this.mapPerformanceAccuracyOnly = this.getAccuracyOnly(this.mapPerformance, 'correct_answers','wrong_answers', 'map_accuracy' )
     // gets 10 countries where the user has performed the best
     this.mapMostAccurate = this.getTopTenAccurate(this.mapPerformanceAccuracy, 'correct_answers','wrong_answers', 'map_accuracy', true )
     // gets 10 countries where the user has performed the worst
@@ -36,6 +40,18 @@ export default {
         country[fieldName] = (country[rightKey] / (country[wrongKey] + country[rightKey]))*100
       }
       return array
+    },
+    getAccuracyOnly: function(array, rightKey, wrongKey, fieldName){
+      // loops through array, calculating guess accuracy and adding to object.
+      const newArray = []
+      for (let country of array) {
+        let entry = {
+          id: country.id,
+          value: (country[rightKey] / (country[wrongKey] + country[rightKey]))*100,
+        }
+        newArray.push(entry)
+      }
+      return newArray
     },
 
     getTopTenAccurate: function(array, rightKey, wrongKey, fieldName, isAccurate){
@@ -64,7 +80,8 @@ export default {
     },
   },
   components: {
-    'map-chart': MapChart
+    'map-chart': MapChart,
+    'heat-map': HeatMap
   }
 }
 </script>
