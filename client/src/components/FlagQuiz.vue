@@ -53,20 +53,28 @@ export default {
         this.answerCountry.flag_correct_ans += 1
         console.log(this.answerCountry.name, "correct: ",this.answerCountry.flag_correct_ans);
 
-        this.updateCountryFlag(this.answerCountry)
+        const id = this.answerCountry._id
+        const updatedObject = {
+          flag_correct_ans: this.answerCountry.flag_correct_ans
+        }
+        this.updateCountryFlag(id, updatedObject)
 
         return this.userGuessResult = true;
       }else{
         this.answerCountry.flag_wrong_ans += 1
         console.log(this.answerCountry.name, "incorrect: ",this.answerCountry.flag_wrong_ans);
 
-        this.updateCountryFlag(this.answerCountry)
+        const id = this.answerCountry._id
+        const updatedObject = {
+          flag_wrong_ans: this.answerCountry.flag_wrong_ans
+        }
+        this.updateCountryFlag(id, updatedObject)
 
         return this.userGuessResult = false;
       }
     },
-    updateCountryFlag(country){
-      CountriesService.updateCountry(country._id, country)
+    updateCountryFlag(id, updatedObject){
+      CountriesService.updateCountry(id, updatedObject)
       .then(resCountryItem => eventBus.$emit('updated-flag-track-item', resCountryItem))
     }
     // checkGuess() will compare the correct country's capital to the user's
