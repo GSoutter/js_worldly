@@ -1,26 +1,31 @@
 <template lang="html">
 
 <div>
-  <h3>Flag Quiz</h3>
+  <h1>Flag Quiz</h1>
   <button @click="generateQuestion" type="button" v-if="answerCountry === null">Click to begin!</button>
 
   <img v-if="answerCountry" v-bind:src="this.answerCountry.flag" alt="Flag">
 
-  <div v-if="answerCountry">
-    <h2>What country is this the flag of?</h2>
+  <div v-if="answerCountry && !userGuessResult">
+    <p>What country is this the flag of?</p>
     <div v-if="possibleAnswers">
       <button v-on:click="checkGuess(possibleAnswers[0])">{{possibleAnswers[0].name}}</button>
+      <br>
       <button v-on:click="checkGuess(possibleAnswers[1])">{{possibleAnswers[1].name}}</button>
+      <br>
       <button v-on:click="checkGuess(possibleAnswers[2])">{{possibleAnswers[2].name}}</button>
+      <br>
       <button v-on:click="checkGuess(possibleAnswers[3])">{{possibleAnswers[3].name}}</button>
+      <br>
     </div>
   </div>
 
-  <p v-if="this.userGuessResult === false">Bad luck, try again!
+  <div><p v-if="userGuessResult===false">Bad luck, try again!
   <br>
   <button @click="generateQuestion" type="button">I want a new country please!</button></p>
+  </div>
 
-  <div v-if="this.userGuessResult === true">
+  <div v-if="userGuessResult">
     <p>Well done!</p>
     <p>The capital of {{this.answerCountry.name}} is {{this.answerCountry.capital}}!</p>
     <p>People from {{this.answerCountry.name}} are called {{this.answerCountry.demonym}}.</p>
@@ -65,5 +70,8 @@ export default {
 <style lang="css" scoped>
   img {
     width: 200px;
+  }
+  h1 {
+    font-size: 30px;
   }
 </style>

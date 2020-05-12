@@ -1,5 +1,5 @@
 <template lang="html">
-  <div>
+  <div class="quiz">
     <capitals-quiz v-if="selectedElement === 'capitalQuiz'" :answerCountry="this.answerCountry" :possibleAnswers="this.possibleAnswers"></capitals-quiz>
     <flag-quiz v-if="selectedElement === 'flagQuiz'" :answerCountry="this.answerCountry" :possibleAnswers="this.possibleAnswers"></flag-quiz>
   </div>
@@ -90,4 +90,15 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.quiz {
+  background: RGBA(245, 239, 203, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 500px;
+  width: 800px;
+  font-size: 24px;
+}
+
 </style>

@@ -16,7 +16,7 @@
 
   <div class="content">
     <quiz v-if="selectedElement === 'capitalQuiz'|| selectedElement === 'flagQuiz' " :countries="countries" :selectedElement="selectedElement"></quiz>
-    <developer-quote/>
+    <!-- <developer-quote/> -->
     <outline-quiz v-if="selectedElement === 'mapQuiz'" :mapPerformance="mapPerformance"/>
     <admin-backend v-if="selectedElement === 'adminBackend'" :countries="countries" :mapPerformance="mapPerformance"/>
     <performance-charts v-if="selectedElement === 'performanceCharts'" :countries="countries" :mapPerformance="mapPerformance"/>
@@ -94,7 +94,11 @@ export default {
 }
 
 .content{
-  margin-top: 100px;
+  margin-top: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 
 }
 header {
@@ -108,7 +112,7 @@ header {
   width: 100%;
   position: fixed;
   top: -5px;
-  left: -5px;
+  left: -1px;
   z-index: 2;
 }
 header > h1{
@@ -129,6 +133,7 @@ nav{
 nav button {
   background-color: #008CBA;
   border: none;
+  outline: 0;
   color: white;
   border: 2px solid #008CBA;
   padding: 10px 25px;
@@ -137,7 +142,7 @@ nav button {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 12px;
+  font-size: 15px;
   transition-duration: 0.4s;
 }
 

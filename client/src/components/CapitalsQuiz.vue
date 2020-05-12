@@ -4,7 +4,7 @@
   <h3>Capitals Quiz</h3>
   <button @click="generateQuestion" type="button" v-if="answerCountry === null">Click to begin!</button>
 
-  <div v-if="answerCountry">
+  <div v-if="answerCountry && !userGuessResult">
     <h2>What is the capital of {{this.answerCountry.name}}?</h2>
     <div v-if="possibleAnswers">
       <button v-on:click="checkGuess(possibleAnswers[0])">{{possibleAnswers[0].capital}}</button>
@@ -14,7 +14,7 @@
     </div>
   </div>
 
-  <p v-if="this.userGuessResult === false">Bad luck, try again!
+  <p v-if="userGuessResult === false">Bad luck, try again!
   <br>
   <button @click="generateQuestion" type="button">I want a new country please!</button></p>
 
