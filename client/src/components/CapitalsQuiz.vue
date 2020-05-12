@@ -17,11 +17,11 @@
     </div>
   </div>
 
-  <p v-if="userGuessResult === false">Bad luck, try again!
+  <p class="wrongAnswer" v-if="userGuessResult === false">Bad luck, try again!
   <br>
-  <button @click="generateQuestion" type="button">I want a new country please!</button></p>
+  <button class="wrongAnswerButton" @click="generateQuestion" type="button">I want a new country please!</button></p>
 
-  <div v-if="this.userGuessResult === true">
+  <div class="rightAnswer" v-if="this.userGuessResult === true">
     <p>Well done!</p>
     <p><img :src="this.answerCountry.flag" width="150"></p>
     <p>The capital of {{this.answerCountry.name}} is {{this.answerCountry.capital}}!</p>
@@ -67,20 +67,48 @@ export default {
 <style lang="css" scoped>
 
 h1 {
-  align-self: flex-end;
+  text-align: center;
   margin-top: 10px;
 }
 
-.question {
-  display: grid;
-  justify-content: flex-start;
+img {
+  width: 200px;
+  border: 1px black solid;
 }
 
-button{
-  background-color: pink;
-  height: 30px;
-  margin: 5px;
-  font-size: 20px;
+.rightAnswer {
+  text-align: center;
+}
+
+.wrongAnswer {
+  text-align: center;
+}
+
+.wrongAnswerButton {
+  background-color: #b56576;
+  border: none;
+}
+
+.question {
+  text-align: center;
+}
+
+button {
+  background-color: #008CBA;
+  border: none;
+  outline: 0;
+  color: white;
+  border: 2px solid #008CBA;
+  padding: 1px 10px;
+  margin-bottom: 1px;
+  margin-top: 10px;
+  width: 250px;
+  height: 40px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  transition-duration: 0.4s;
 }
 
 button:hover {

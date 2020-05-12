@@ -99,7 +99,7 @@ export default {
   display: flex;
   border-radius: 5px;
   justify-content: center;
-  height: 500px;
+  height: 550px;
   width: 800px;
   font-size: 20px;
 }

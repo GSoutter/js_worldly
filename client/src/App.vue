@@ -6,7 +6,7 @@
     <span>
     <nav>
     <button v-on:click="select('mapQuiz')">Map Quiz</button>
-    <button v-on:click="select('capitalQuiz')">Capital Quiz</button>
+    <button v-on:click="select('capitalQuiz')">Capitals Quiz</button>
     <button v-on:click="select('flagQuiz')">Flag Quiz</button>
     <button v-on:click="select('performanceCharts')">Performance Charts</button>
     <button v-on:click="select('adminBackend')">Admin</button>
@@ -88,13 +88,13 @@ export default {
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 .app {
-  font-family: "Open Sans", "helvetica neue", helvetica, arial, sans-serif;
-}
+font-family: 'Roboto', sans-serif;}
 
 .content{
-  margin-top: 150px;
+  margin-top: 100px;
   display: flex;
   align-items: center;
   justify-content: center;

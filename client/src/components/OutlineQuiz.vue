@@ -1,6 +1,7 @@
 <template lang="html">
-  <div class="">
+  <div class="map">
     <h1>Outline Quiz Map</h1>
+
     <button v-on:click="setWorld()">World</button>
     <button v-on:click="setEurope()">Europe</button>
     <button v-on:click="setAfrica()">Africa</button>
@@ -101,4 +102,39 @@ export default {
 </script>
 
 <style lang="css" scoped>
+
+.map {
+  background: RGBA(245, 239, 203, 0.75);
+  border-radius: 5px;
+  height: 90%;
+  width: 900px;
+  font-size: 20px;
+}
+
+
+h1 {
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 1px;
+}
+
+button {
+  background-color: #008CBA;
+  outline: 0;
+  color: white;
+  border: 1px solid white;
+  padding: 5px 15px;
+  margin-bottom: 1px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: white;
+  color: #008CBA;
+}
+
 </style>
