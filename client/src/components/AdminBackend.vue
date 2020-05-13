@@ -4,13 +4,13 @@
     <br>
     <hr>
     <p>Countries from RestAPI: {{countries.length}}</p>
-    <button v-on:click="populateRestCountriesDb(false)">Pop database with RestAPI + tracking(blank)</button>
-    <button v-on:click="populateRestCountriesDb(true)">Pop database with RestAPI + tracking(random)</button>
+    <button v-on:click="populateRestCountriesDb(false)">Populate database with RestAPI + tracking(blank)</button>
+    <button v-on:click="populateRestCountriesDb(true)">Populate database with RestAPI + tracking(random)</button>
     <br>
     <hr>
     <p>Countries in Outline map tracking: {{mapPerformance.length}}</p>
-    <button v-on:click="populateMapCountriesDb(false)">Pop database with Outline Map tracking(blank)</button>
-    <button v-on:click="populateMapCountriesDb(true)">Pop database with Outline Map tracking(random)</button>
+    <button v-on:click="populateMapCountriesDb(false)">Populate database with Outline Map tracking(blank)</button>
+    <button v-on:click="populateMapCountriesDb(true)">Populate database with Outline Map tracking(random)</button>
     <br>
     <hr>
     <p>To clear all data, run npm run seeds in server folder</p>
