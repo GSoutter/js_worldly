@@ -10,6 +10,7 @@
     <button v-if="!answerCountry"v-on:click="randomArrayItem(polygonData)">Give me a country!</button>
     <button v-if="!answerCorrect && answerCountry" v-on:click="randomArrayItem(polygonData)">Give me a different country!</button>
     <button v-if="answerCorrect" v-on:click="resetAnswer">Another round?</button>
+    <button v-if="!answerCorrect && !giveUpZoom" v-on:click="giveUpMethod">Give Up? Show me</button>
   </div>
 
 </template>
@@ -28,7 +29,7 @@ am4core.useTheme(am4themes_animated);
 
 export default {
   name: 'outline-map',
-  props: ['performanceData', 'amMapData'],
+  props: ['performanceData', 'amMapData', 'giveUp'],
   data() {
     return {
       map: null,
@@ -36,11 +37,13 @@ export default {
       selectedCountry: null,
       answerCountry: null,
       worldCountryPolygonData: null,
-      answerCorrect: false
+      answerCorrect: false,
+      giveUpZoom: null,
 
     }
   },
   mounted() {
+
     this.map = am4core.create("chartdiv", am4maps.MapChart)
     this.map.geodata = this.amMapData
     this.map.projection = new am4maps.projections.Miller()
@@ -70,14 +73,26 @@ export default {
     activeState.properties.fill = this.map.colors.getIndex(2);
 
 
+    this.giveUpZoom = this.giveUp
+
     // on click listener for objects on map and highlight.
     polygonTemplate.events.on("hit", (ev) => {
+
+      if (this.giveUpZoom) {
+        console.log("disable hit");
+        var country = polygonSeries.getPolygonById(this.giveUpZoom);
+        country.isActive = false
+        this.giveUpZoom = null
+      }
+
 
       if (this.selectedCountry !== ev.target) {
         // check if a previous event has been stored and then changes to false
         if (this.selectedCountry) {
           this.selectedCountry.isActive = false
         }
+
+
 
         // sets target clicked to active. To show coloring
         ev.target.isActive = !ev.target.isActive;
@@ -90,6 +105,23 @@ export default {
       }
 
     });
+
+
+    if (this.giveUpZoom) {
+
+
+      this.map.events.on("ready", ev => {
+
+        let zoomTo = [this.giveUpZoom];
+        let country = polygonSeries.getPolygonById(zoomTo)
+        country.isActive = true
+
+        // Pre-zoom
+        this.map.zoomToMapObject(country);
+
+      });
+    }
+
 
 
   },
@@ -113,6 +145,9 @@ export default {
       this.answerCorrect = false
       this.randomArrayItem(this.polygonData)
     },
+    giveUpMethod: function(){
+      eventBus.$emit('give-up', this.answerCountry.id)
+    },
 
     correct: function(){
       // check if answer is already true to avoid wrong answer being logged after correct answer has been given.
@@ -129,7 +164,7 @@ export default {
         // result is true. Finds element in performance array. Increments by one. logs for error checking. sets answer to true.
         const countryPerformanceObject = this.performanceData.find(country => country.name === this.answerCountry.name)
         countryPerformanceObject.correct_answers += 1
-        console.log(countryPerformanceObject.name, "correct: ",countryPerformanceObject.correct_answers);
+        // console.log(countryPerformanceObject.name, "correct: ",countryPerformanceObject.correct_answers);
         const id = countryPerformanceObject._id
         const updatedObject = {
           correct_answers: countryPerformanceObject.correct_answers
@@ -142,7 +177,7 @@ export default {
         // result is false. finds element. Increments wrong answer by on. logs for error checking. sets answer to false. Although in this implenation is redundant.
         const countryPerformanceObject = this.performanceData.find(country => country.name === this.answerCountry.name)
         countryPerformanceObject.wrong_answers += 1
-        console.log(countryPerformanceObject.name, "Wrong: ", countryPerformanceObject.wrong_answers);
+        // console.log(countryPerformanceObject.name, "Wrong: ", countryPerformanceObject.wrong_answers);
         const id = countryPerformanceObject._id
         const updatedObject = {
           wrong_answers: countryPerformanceObject.wrong_answers
