@@ -13,7 +13,7 @@
     <button v-on:click="setNorthAmerica()">North America</button>
     <button v-on:click="setOceania()">Oceania</button>
     <button v-on:click="setSouthAmerica()">South America</button>
-    <outline-map v-if="amMapData":performanceData="mapPerformance" :amMapData="amMapData" :key="componentKey"/>
+    <outline-map v-if="amMapData":performanceData="mapPerformance" :amMapData="amMapData" :key="componentKey" :giveUp="giveUp"/>
   </div>
 </template>
 
@@ -30,6 +30,8 @@ import Am4geodata_middleEastHigh from "@amcharts/amcharts4-geodata/region/world/
 import Am4geodata_northAmericaHigh from "@amcharts/amcharts4-geodata/region/world/northAmericaHigh";
 import Am4geodata_oceaniaHigh from "@amcharts/amcharts4-geodata/region/world/oceaniaHigh";
 import Am4geodata_southAmericaHigh from "@amcharts/amcharts4-geodata/region/world/southAmericaHigh";
+import { eventBus } from '@/main.js'
+
 
 
 
@@ -41,10 +43,16 @@ export default {
     return {
       amMapData: null,
       componentKey: 0,
+      giveUp: false
     }
   },
-  mounted(){
-    // this.amMapTest = am4geodata_europeHigh
+  mounted() {
+    eventBus.$on('give-up', (giveUp) => {
+      if (giveUp) {
+        this.giveUp = giveUp
+        this.forceRerender()
+      }
+    })
   },
   components: {
     'outline-map': OutlineMap,
