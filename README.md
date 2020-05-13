@@ -11,16 +11,16 @@ The BBC are looking to improve their online offering of educational content by d
 * Use charts or maps to display your information to the page.
 
 
+# Setup:
 
+# Server side
 
-# Server
-
-## Project setup
+### Project setup
 ```
 npm install
 ```
 
-## Creating database files. Database is mongo db This seeds the database with blank data which will be populated form the front end.
+### Creating database files. Database is mongo db This seeds the database with blank data which will be populated form the front end.
 ```
 npm run seeds
 ```
@@ -32,7 +32,7 @@ npm run server:dev
 
 
 
-# client
+# Client side
 
 ## Project setup
 ```
