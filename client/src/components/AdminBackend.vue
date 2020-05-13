@@ -1,9 +1,13 @@
 <template lang="html">
   <div class="chart-component">
     <h3>Admin for Backend</h3>
+    <br>
+    <hr>
     <p>Countries from RestAPI: {{countries.length}}</p>
     <button v-on:click="populateRestCountriesDb(false)">Pop database with RestAPI + tracking(blank)</button>
     <button v-on:click="populateRestCountriesDb(true)">Pop database with RestAPI + tracking(random)</button>
+    <br>
+    <hr>
     <p>Countries in Outline map tracking: {{mapPerformance.length}}</p>
     <button v-on:click="populateMapCountriesDb(false)">Pop database with Outline Map tracking(blank)</button>
     <button v-on:click="populateMapCountriesDb(true)">Pop database with Outline Map tracking(random)</button>
