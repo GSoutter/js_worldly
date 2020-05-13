@@ -4,10 +4,12 @@
 
     <div class="" id="chartdiv">
     </div>
-    <button v-on:click="randomArrayItem(polygonData)">Give me a country!</button>
-    <h4 v-if="answerCountry">Find {{this.answerCountry.name}}</h4>
-    <h5 v-if="selectedCountry">you have selected {{this.selectedCountry.dataItem.dataContext.name}}</h5>
-    <button v-if="answerCorrect" v-on:click="resetAnswer">Well done! Another round?</button>
+    <h3 v-if="answerCountry && !answerCorrect">Where is {{this.answerCountry.name}}?</h3>
+    <h3 v-if="answerCorrect">Welldone you found {{this.answerCountry.name}}</h3>
+    <h5 v-if="selectedCountry">You have selected {{this.selectedCountry.dataItem.dataContext.name}}</h5>
+    <button v-if="!answerCountry"v-on:click="randomArrayItem(polygonData)">Give me a country!</button>
+    <button v-if="!answerCorrect && answerCountry" v-on:click="randomArrayItem(polygonData)">Give me a different country!</button>
+    <button v-if="answerCorrect" v-on:click="resetAnswer">Another round?</button>
   </div>
 
 </template>
@@ -54,7 +56,9 @@ export default {
     polygonSeries.useGeodata = true
 
     var polygonTemplate = polygonSeries.mapPolygons.template;
-
+    polygonTemplate.fill = am4core.color("#d2e6c1")
+    polygonTemplate.stroke = am4core.color("#395C6B")
+    // F5ECCB
 
     // assign hover state to variable and assigns color. Hover is activated when mouse is over object in browswer wind.
     var hs = polygonTemplate.states.create("hover");
@@ -159,7 +163,30 @@ export default {
 
 #chartdiv {
   width: 100%;
-  height: 400px;
-  margin-top: 20px;
+  height: 500px;
+  margin-top: 4px;
+  background-color: RGBA(170, 223, 239, 0.75);
+  border-radius: 4px;
+
 }
+
+button {
+  background-color: #008CBA;
+  outline: 0;
+  color: white;
+  border: 1px solid white;
+  padding: 5px 15px;
+  margin-bottom: 1px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: white;
+  color: #008CBA;
+}
+
 </style>

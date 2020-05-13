@@ -1,6 +1,5 @@
 <template lang="html">
   <div class="">
-    <h3>Map Quiz Top Ten</h3>
     <div class="chart" id="chartdiv">
     </div>
   </div>
@@ -63,7 +62,6 @@ export default {
     leftSeries.dataFields.subTwoValueX = "wrong_answers";
     // leftSeries.dataFields.valueXShow = "percent";
     // leftSeries.calculatePercent = true;
-    console.log(leftSeries.dataFields);
     leftSeries.dataFields.categoryY = "name";
     leftSeries.interpolationDuration = 1000;
     leftSeries.columns.template.tooltipText = "{categoryY}: {valueX.formatNumber('#.0')}% Correct: {subValueX} Wrong:{subTwoValueX}";
@@ -98,7 +96,7 @@ export default {
     // rightSeries.calculatePercent = true;
     rightSeries.dataFields.subValueX = "correct_answers";
     rightSeries.dataFields.subTwoValueX = "wrong_answers";
-    rightSeries.fill = rightChart.colors.getIndex(4);
+    rightSeries.fill = am4core.color("#6bbd8f");
     rightSeries.stroke = rightSeries.fill;
 
     //maleSeries.sequencedInterpolation = true;
@@ -106,6 +104,13 @@ export default {
     rightSeries.dataFields.categoryY = "name";
     rightSeries.interpolationDuration = 1000;
 
+    let label = rightCategoryAxis.renderer.labels.template;
+    label.truncate = true;
+    label.maxWidth = 200;
+
+    let leftLabel = leftCategoryAxis.renderer.labels.template;
+    leftLabel.truncate = true;
+    leftLabel.maxWidth = 200;
 
   }, // mounted end
   beforeDestroy() {
