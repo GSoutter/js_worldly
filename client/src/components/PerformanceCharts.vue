@@ -1,39 +1,38 @@
 <template lang="html">
-  <div class="">
-    <h2>Performance Charts</h2>
-    <button v-on:click="select('mapQuiz')">Map Quiz</button>
-    <button v-on:click="select('capitalQuiz')">Capital Quiz</button>
-    <button v-on:click="select('flagQuiz')">Flag Quiz</button>
+  <div class="chart-component">
+    <h1>Performance Charts <span id="region-prompt">
+      <button :class="{'active-button':(selectedElement === 'mapQuiz')}" v-on:click="select('mapQuiz')">Map Quiz</button>
+      <button :class="{'active-button':(selectedElement === 'capitalQuiz')}" v-on:click="select('capitalQuiz')">Capital Quiz</button>
+      <button :class="{'active-button':(selectedElement === 'flagQuiz')}" v-on:click="select('flagQuiz')">Flag Quiz</button>
+      <span v-if="!selectedElement" > - Please select</span>
 
-    <div v-if="selectedElement === 'mapQuiz'">
-      <h2>Map Quiz</h2>
+    </span></h1>
 
-      <button v-on:click="selectChart('heatmap')">Heatmap</button>
-      <button v-on:click="selectChart('table')">Top 10 Table</button>
 
-      <div v-if="chartSelect === 'table'">
-        <h3>Accuracy Table</h3>
+    <div class="map-quiz" v-if="selectedElement === 'mapQuiz'">
+
+      <button :class="{'active-button':(chartSelect === 'heatmap')}" v-on:click="selectChart('heatmap')">Heatmap</button>
+      <button  :class="{'active-button':(chartSelect === 'table')}" v-on:click="selectChart('table')">Top 10 Table</button>
+
+      <div  v-if="chartSelect === 'table'">
         <map-chart v-if="mapMostInaccurate"
         :mapMostAccurate="mapMostAccurate"
         :mapMostInaccurate="mapMostInaccurate" />
       </div>
 
-      <div v-if="chartSelect === 'heatmap'">
-        <h3>Accuracy Heatmap</h3>
+      <div  v-if="chartSelect === 'heatmap'">
         <heat-map v-if="mapPerformanceAccuracy"
         :mapPerformanceAccuracy="mapPerformanceAccuracyOnly" />
       </div>
     </div>
 
     <div v-if="selectedElement === 'capitalQuiz'">
-      <h3>Capital Quiz: Accuracy Table</h3>
       <capital-chart v-if="capitalMostInaccurate"
       :mostAccurate="capitalMostAccurate"
       :mostInaccurate="capitalMostInaccurate" />
     </div>
 
     <div v-if="selectedElement === 'flagQuiz'">
-      <h3>Flag Quiz: Accuracy Table</h3>
       <flag-chart v-if="flagMostInaccurate"
       :mostAccurate="flagMostAccurate"
       :mostInaccurate="flagMostInaccurate" />
@@ -166,10 +165,66 @@ export default {
 
 <style lang="css" scoped>
 
-.chart{
+/* .chart{
   height: 600px;
   font-size: 10px;
+} */
+.chart-component{
+  background: RGBA(245, 239, 203, 0.75);
+  border-radius: 4px;
+  height: 100%;
+  width: 900px;
+  font-size: 20px;
+  padding: 4px;
 }
 
+h1 {
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 1px;
+}
+span {
+
+}
+
+
+
+
+button {
+  background-color: #008CBA;
+  outline: 0;
+  color: white;
+  border-radius: 2px;
+  border: 1px solid white;
+  padding: 2px 12px;
+  margin-bottom: 1px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: white;
+  color: #008CBA;
+}
+
+#region-prompt {
+  font-size: 20px;
+  color: RGBA(0, 0, 0, 0.7);
+  vertical-align: middle;
+  align-self: end;
+}
+
+.active-button{
+  background-color: white;
+  color: #008CBA;
+}
+
+.map-quiz button {
+  font-size: 14px;
+  padding: 1px 4px;
+}
 
 </style>

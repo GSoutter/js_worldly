@@ -56,7 +56,7 @@ export default {
     polygonSeries.useGeodata = true
 
     var polygonTemplate = polygonSeries.mapPolygons.template;
-    polygonTemplate.fill = am4core.color("#c2d7bd")
+    polygonTemplate.fill = am4core.color("#d2e6c1")
     polygonTemplate.stroke = am4core.color("#395C6B")
     // F5ECCB
 
@@ -163,8 +163,11 @@ export default {
 
 #chartdiv {
   width: 100%;
-  height: 400px;
-  margin-top: 20px;
+  height: 500px;
+  margin-top: 4px;
+  background-color: RGBA(170, 223, 239, 0.75);
+  border-radius: 4px;
+
 }
 
 button {

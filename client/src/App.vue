@@ -106,7 +106,7 @@ export default {
 font-family: 'Roboto', sans-serif;}
 
 .content{
-  margin-top: 100px;
+  margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -122,11 +122,18 @@ header {
   margin: 0;
   content: '';
   width: 100%;
-  position: fixed;
-  top: -5px;
+  /* position: fixed; */
+  /* top: -5px;
   left: -1px;
-  z-index: 2;
+  z-index: 2; */
 }
+* {
+    margin: 0;
+    padding: 0;
+    line-height: 1.5em;
+    /* background: #222129; */
+}
+
 header > h1{
   font-family: 'Amatic SC', cursive, serif;
   font-size: 64px;

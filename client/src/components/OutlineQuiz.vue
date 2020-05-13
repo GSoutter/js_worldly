@@ -117,7 +117,7 @@ export default {
 h1 {
   margin-top: 5px;
   margin-left: 10px;
-  margin-bottom: 1px;
+  margin-bottom: -10px;
 }
 
 button {
@@ -126,12 +126,12 @@ button {
   color: white;
   border-radius: 2px;
   border: 1px solid white;
-  padding: 5px 15px;
+  padding: 2px 8px;
   margin-bottom: 1px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 12px;
+  font-size: 14px;
   transition-duration: 0.4s;
 }
 
@@ -143,6 +143,8 @@ button:hover {
 #region-prompt {
   font-size: 20px;
   color: RGBA(0, 0, 0, 0.7);
+  vertical-align: middle;
+
 }
 
 </style>
