@@ -5,7 +5,7 @@
     <div class="" id="chartdiv">
     </div>
     <h3 v-if="answerCountry && !answerCorrect">Where is {{this.answerCountry.name}}?</h3>
-    <h3 v-if="answerCorrect">Welldone you found {{this.answerCountry.name}}</h3>
+    <h3 v-if="answerCorrect">Well done you found {{this.answerCountry.name}}.</h3>
     <h5 v-if="selectedCountry">You have selected {{this.selectedCountry.dataItem.dataContext.name}}</h5>
     <button v-if="!answerCountry"v-on:click="randomArrayItem(polygonData)">Give me a country!</button>
     <button v-if="!answerCorrect && answerCountry" v-on:click="randomArrayItem(polygonData)">Give me a different country!</button>
@@ -19,7 +19,6 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import * as am4maps from "@amcharts/amcharts4/maps";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-// import am4geodata_worldLow from "@amcharts/amcharts4-geodata/worldLow";
 import { eventBus } from '@/main.js'
 import MapCountriesService from '@/services/MapCountriesService.js';
 
@@ -45,6 +44,7 @@ export default {
     this.map = am4core.create("chartdiv", am4maps.MapChart)
     this.map.geodata = this.amMapData
     this.map.projection = new am4maps.projections.Miller()
+    this.map.panBehavior = "rotateLong"
     var polygonSeries = this.map.series.push(new am4maps.MapPolygonSeries())
 
     this.worldCountryPolygonData = this.amMapData.features

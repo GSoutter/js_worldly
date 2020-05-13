@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div class="chart-component">
     <h3>Admin for Backend</h3>
     <p>Countries from RestAPI: {{countries.length}}</p>
     <button v-on:click="populateRestCountriesDb(false)">Pop database with RestAPI + tracking(blank)</button>
@@ -97,5 +97,64 @@ export default {
 }
 </script>
 
+
+
+
 <style lang="css" scoped>
+
+/* .chart{
+  height: 600px;
+  font-size: 10px;
+} */
+.chart-component{
+  background: RGBA(245, 239, 203, 0.75);
+  border-radius: 4px;
+  height: 100%;
+  width: 900px;
+  font-size: 20px;
+  padding: 4px;
+}
+
+h1 {
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-bottom: 1px;
+}
+
+button {
+  background-color: #008CBA;
+  outline: 0;
+  color: white;
+  border-radius: 2px;
+  border: 1px solid white;
+  padding: 2px 12px;
+  margin-bottom: 1px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: white;
+  color: #008CBA;
+}
+
+#region-prompt {
+  font-size: 20px;
+  color: RGBA(0, 0, 0, 0.7);
+  vertical-align: middle;
+  align-self: end;
+}
+
+.active-button{
+  background-color: white;
+  color: #008CBA;
+}
+
+.map-quiz button {
+  font-size: 14px;
+  padding: 1px 4px;
+}
 </style>

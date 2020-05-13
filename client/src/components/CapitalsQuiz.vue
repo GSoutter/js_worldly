@@ -45,6 +45,9 @@ export default {
     }
   },
   props: ['answerCountry', 'possibleAnswers'],
+  mounted() {
+    this.generateQuestion()
+  },
   methods: {
     generateQuestion(){
       this.userGuessResult = null;

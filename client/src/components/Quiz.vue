@@ -18,11 +18,11 @@ export default {
     }
   },
   props: ['countries', 'selectedElement'],
-  watch: {
-    selectedElement: function(){
-      this.generateQuestion();
-    }
-  },
+  // watch: {
+  //   selectedElement: function(){
+  //     this.generateQuestion();
+  //   }
+  // },
   mounted() {
     eventBus.$on('guess-selected', (payload) => {
       this.checkGuess(payload);
