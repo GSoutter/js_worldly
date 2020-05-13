@@ -134,7 +134,8 @@ export default {
     margin-bottom: 1px;
     margin-top: 10px;
     width: 250px;
-    height: 40px;
+    height: auto;
+    min-height: 40px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
