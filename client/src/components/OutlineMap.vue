@@ -10,7 +10,7 @@
     <button v-if="!answerCountry"v-on:click="randomArrayItem(polygonData)">Give me a country!</button>
     <button v-if="!answerCorrect && answerCountry" v-on:click="randomArrayItem(polygonData)">Give me a different country!</button>
     <button v-if="answerCorrect" v-on:click="resetAnswer">Another round?</button>
-    <button v-if="!answerCorrect && !giveUpZoom" v-on:click="giveUpMethod">Give Up? Show me</button>
+    <button v-if="!answerCorrect && !giveUpZoom && answerCountry" v-on:click="giveUpMethod">Give Up? Show me</button>
   </div>
 
 </template>
@@ -78,10 +78,14 @@ export default {
     // on click listener for objects on map and highlight.
     polygonTemplate.events.on("hit", (ev) => {
 
+
       if (this.giveUpZoom) {
         console.log("disable hit");
         var country = polygonSeries.getPolygonById(this.giveUpZoom);
-        country.isActive = false
+        if (country) {
+          country.isActive = false
+        }
+
         this.giveUpZoom = null
       }
 
@@ -114,10 +118,13 @@ export default {
 
         let zoomTo = [this.giveUpZoom];
         let country = polygonSeries.getPolygonById(zoomTo)
-        country.isActive = true
+        if (country) {
+          country.isActive = true
 
-        // Pre-zoom
-        this.map.zoomToMapObject(country);
+          // Pre-zoom
+          this.map.zoomToMapObject(country);
+        }
+
 
       });
     }
