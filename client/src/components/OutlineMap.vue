@@ -10,7 +10,7 @@
     <button v-if="!answerCountry"v-on:click="randomArrayItem(polygonData)">Give me a country!</button>
     <button v-if="!answerCorrect && answerCountry" v-on:click="randomArrayItem(polygonData)">Give me a different country!</button>
     <button v-if="answerCorrect" v-on:click="resetAnswer">Another round?</button>
-    <button v-if="!answerCorrect && !giveUpZoom" v-on:click="giveUpMethod">Give Up? Show me</button>
+    <button v-if="!answerCorrect && !giveUpZoom && answerCountry" v-on:click="giveUpMethod">Give Up? Show me</button>
   </div>
 
 </template>
