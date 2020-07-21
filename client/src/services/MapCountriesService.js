@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:3000/api/amMapPerformance/'
+const baseURL = 'api/amMapPerformance/'
 
 export default {
   getCountries(){

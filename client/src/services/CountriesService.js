@@ -1,4 +1,4 @@
-const baseURL = 'http://localhost:3000/api/countriesPlus/'
+const baseURL = 'api/countriesPlus/'
 
 export default {
   getCountries(){

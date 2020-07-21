@@ -11,6 +11,15 @@ const parser = require('body-parser')
 app.use(parser.json());
 app.use(cors())
 
+// Handle Production
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(__dirname + "/public/"));
+
+  // Handle SPA
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+
+}
+
 // For flag and capital quiz database access
 MongoClient.connect('mongodb://localhost:27017')
 .then((client) => {
@@ -46,8 +55,8 @@ app.get('/restCountries', (req, res) => {
   .then(data => res.json(data));
 });
 
+const port = process.env.PORT || 3000
 
-
-app.listen(3000, function () {
+app.listen(port, function () {
   console.log(`Listening on port ${ this.address().port }`);
 });
