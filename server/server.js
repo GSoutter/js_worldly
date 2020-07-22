@@ -20,8 +20,11 @@ if(process.env.NODE_ENV === 'production') {
 
 }
 
+const dbConnectionString = 'mongodb+srv://GsTestUser:GsTestPass@cluster0.uluxt.mongodb.net/worldly_GP_wk10?retryWrites=true&w=majority'  
+//old offline location used mongoDB'mongodb://localhost:27017'
+
 // For flag and capital quiz database access
-MongoClient.connect('mongodb://localhost:27017')
+MongoClient.connect(dbConnectionString)
 .then((client) => {
   const db = client.db('worldly_GP_wk10');
   const countriesCollection = db.collection('countriesPlus');
@@ -33,7 +36,7 @@ MongoClient.connect('mongodb://localhost:27017')
 
 
 // For map quiz database access
-MongoClient.connect('mongodb://localhost:27017')
+MongoClient.connect(dbConnectionString)
 .then((client) => {
   const db = client.db('worldly_GP_wk10');
   const countriesCollection = db.collection('amMapPerformance');
