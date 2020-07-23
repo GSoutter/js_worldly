@@ -11,8 +11,20 @@ const parser = require('body-parser')
 app.use(parser.json());
 app.use(cors())
 
+// Handle Production
+if(process.env.NODE_ENV === 'production') {
+  app.use(express.static(__dirname + "/public/"));
+
+  // Handle SPA
+  app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+
+}
+
+const dbConnectionString = 'mongo_db_string'  
+//old offline location used mongoDB'mongodb://localhost:27017'
+
 // For flag and capital quiz database access
-MongoClient.connect('mongodb://localhost:27017')
+MongoClient.connect(dbConnectionString)
 .then((client) => {
   const db = client.db('worldly_GP_wk10');
   const countriesCollection = db.collection('countriesPlus');
@@ -24,7 +36,7 @@ MongoClient.connect('mongodb://localhost:27017')
 
 
 // For map quiz database access
-MongoClient.connect('mongodb://localhost:27017')
+MongoClient.connect(dbConnectionString)
 .then((client) => {
   const db = client.db('worldly_GP_wk10');
   const countriesCollection = db.collection('amMapPerformance');
@@ -46,8 +58,8 @@ app.get('/restCountries', (req, res) => {
   .then(data => res.json(data));
 });
 
+const port = process.env.PORT || 3000
 
-
-app.listen(3000, function () {
+app.listen(port, function () {
   console.log(`Listening on port ${ this.address().port }`);
 });
