@@ -3,6 +3,7 @@ const app = express();
 const MongoClient = require('mongodb').MongoClient;
 const createRouter = require('./helpers/create_router.js');
 const fetch = require('node-fetch');
+require('dotenv').config();
 
 const cors = require('cors')
 const parser = require('body-parser')
@@ -20,7 +21,7 @@ if(process.env.NODE_ENV === 'production') {
 
 }
 
-const dbConnectionString = 'db_connection_string'  
+const dbConnectionString = process.env.DB_CONNECTION_STRING;  
 //old offline location used mongoDB'mongodb://localhost:27017'
 
 // For flag and capital quiz database access

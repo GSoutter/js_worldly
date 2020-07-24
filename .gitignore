@@ -3,3 +3,4 @@ node_modules
 Countries_Group_project.key
 archive_amChart.js
 example.js
+.env
