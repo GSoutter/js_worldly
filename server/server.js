@@ -20,7 +20,7 @@ if(process.env.NODE_ENV === 'production') {
 
 }
 
-const dbConnectionString = 'mongo_db_string'  
+const dbConnectionString = 'db_connection_string'  
 //old offline location used mongoDB'mongodb://localhost:27017'
 
 // For flag and capital quiz database access
