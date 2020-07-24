@@ -18,6 +18,7 @@ if(process.env.NODE_ENV === 'production') {
 
   // Handle SPA
   app.get(/.*/, (req, res) => res.sendFile(__dirname + '/public/index.html'));
+  console.log("production is loaded")
 
 }
 
@@ -25,7 +26,7 @@ const dbConnectionString = process.env.DB_CONNECTION_STRING;
 //old offline location used mongoDB'mongodb://localhost:27017'
 
 // For flag and capital quiz database access
-MongoClient.connect(dbConnectionString)
+MongoClient.connect(dbConnectionString, { useNewUrlParser: true, useUnifiedTopology: true })
 .then((client) => {
   const db = client.db('worldly_GP_wk10');
   const countriesCollection = db.collection('countriesPlus');
@@ -37,7 +38,7 @@ MongoClient.connect(dbConnectionString)
 
 
 // For map quiz database access
-MongoClient.connect(dbConnectionString)
+MongoClient.connect(dbConnectionString, { useNewUrlParser: true, useUnifiedTopology: true })
 .then((client) => {
   const db = client.db('worldly_GP_wk10');
   const countriesCollection = db.collection('amMapPerformance');
