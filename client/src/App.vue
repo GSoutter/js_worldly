@@ -10,6 +10,7 @@
     <button v-on:click="select('flagQuiz')">Flag Quiz</button>
     <button v-on:click="select('performanceCharts')">Performance Charts</button>
     <button v-on:click="select('adminBackend')">Admin</button>
+    <button v-on:click="reGetCountries()">CountriesRefresh</button>
     </nav>
   </span>
   </header>
@@ -83,6 +84,13 @@ export default {
   methods: {
     select(element) {
       this.selectedElement = element
+    },
+    reGetCountries(){
+      CountriesService.getCountries()
+      .then(countries => this.countries = countries)
+
+      MapCountriesService.getCountries()
+      .then(countries => this.mapPerformance = countries)
     }
 
   },
