@@ -58,7 +58,7 @@ export default {
     checkGuess(guess){
       if (guess === this.answerCountry){
         this.answerCountry.flag_correct_ans += 1
-        console.log(this.answerCountry.name, "correct: ",this.answerCountry.flag_correct_ans);
+        // console.log(this.answerCountry.name, "correct: ",this.answerCountry.flag_correct_ans);
 
         const id = this.answerCountry._id
         const updatedObject = {
@@ -69,7 +69,7 @@ export default {
         return this.userGuessResult = true;
       }else{
         this.answerCountry.flag_wrong_ans += 1
-        console.log(this.answerCountry.name, "incorrect: ",this.answerCountry.flag_wrong_ans);
+        // console.log(this.answerCountry.name, "incorrect: ",this.answerCountry.flag_wrong_ans);
 
         const id = this.answerCountry._id
         const updatedObject = {

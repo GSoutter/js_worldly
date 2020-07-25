@@ -142,10 +142,10 @@ export default {
   },
   methods: {
     randomArrayItem: function(array){
-      console.log('buttonClicked');
+      // console.log('buttonClicked');
       const max = array.length;
       const randomIndex = Math.floor(Math.random() * Math.floor(max));
-      console.log(array[randomIndex]);
+      // console.log(array[randomIndex]);
       this.answerCountry = array[randomIndex];
     },
     resetAnswer: function(){

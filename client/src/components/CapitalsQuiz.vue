@@ -67,7 +67,7 @@ export default {
         return this.userGuessResult = true;
       }else{
         this.answerCountry.capital_wrong_ans += 1
-        console.log(this.answerCountry.name, "incorrect: ",this.answerCountry.capital_wrong_ans);
+        // console.log(this.answerCountry.name, "incorrect: ",this.answerCountry.capital_wrong_ans);
 
         const id = this.answerCountry._id
         const updatedObject = {

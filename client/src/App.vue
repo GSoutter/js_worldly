@@ -9,8 +9,8 @@
     <button v-on:click="select('capitalQuiz')">Capitals Quiz</button>
     <button v-on:click="select('flagQuiz')">Flag Quiz</button>
     <button v-on:click="select('performanceCharts')">Performance Charts</button>
-    <button v-on:click="select('adminBackend')">Admin</button>
-    <button v-on:click="reGetCountries()">CountriesRefresh</button>
+    <!-- <button v-on:click="select('adminBackend')">Admin</button> -->
+    <!-- <button v-on:click="reGetCountries()">CountriesRefresh</button> -->
     </nav>
   </span>
   </header>
@@ -65,13 +65,13 @@ export default {
     eventBus.$on('updated-amMap-track-item', (resCountryItem) => {
       const index = this.mapPerformance.findIndex(country => country._id === resCountryItem._id)
       this.mapPerformance.splice(index, 1, resCountryItem)
-      console.log(resCountryItem);
+      // console.log(resCountryItem);
     })
 
     eventBus.$on('updated-country-track-item', (resCountryItem) => {
       const index = this.mapPerformance.findIndex(country => country._id === resCountryItem._id)
       this.countries.splice(index, 1, resCountryItem)
-      console.log(resCountryItem);
+      // console.log(resCountryItem);
     })
 
     // eventBus.$on('updated-capital-track-item', (resCountryItem) => {
